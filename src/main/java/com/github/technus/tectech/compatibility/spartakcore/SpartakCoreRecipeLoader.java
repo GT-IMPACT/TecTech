@@ -334,6 +334,15 @@ public class SpartakCoreRecipeLoader implements Runnable {
                 new ItemStack(Blocks.stone_button, 16),
                 GT_Utility.getIntegratedCircuit(5),
         }, Materials.Iridium.getMolten(2592), CustomItemList.UncertaintyX_Hatch.get(1), 1400, 500000, true);
+
+        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{
+                CustomItemList.eM_Computer_Casing.get(1),
+                ItemList.Circuit_Nano.get(1),
+                CustomItemList.DATApipe.get(48),
+                ItemList.Cover_Screen.get(1),
+                new ItemStack(Blocks.stone_button, 16),
+                GT_Utility.getIntegratedCircuit(6),
+        }, Materials.Iridium.getMolten(2592), CustomItemList.hatch_CreativeUncertainty.get(1), 1600, 2000000, true);
 		
         //Elemental Input
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{
