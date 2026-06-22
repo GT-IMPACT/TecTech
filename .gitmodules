@@ -1,3 +1,7 @@
 [submodule "AVRcore"]
 	path = AVRcore
 	url = https://github.com/Technus/AVRcore
+[submodule "remote-build-logic"]
+	path = remote-build-logic
+	url = https://github.com/GT-IMPACT/BuildConfig.git
+	branch = main

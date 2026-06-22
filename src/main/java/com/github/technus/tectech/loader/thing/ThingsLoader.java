@@ -1,9 +1,6 @@
 package com.github.technus.tectech.loader.thing;
 
-import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.TecTech;
-import com.github.technus.tectech.compatibility.openmodularturrets.blocks.turretbases.TurretBaseEM;
-import com.github.technus.tectech.compatibility.openmodularturrets.blocks.turretheads.TurretHeadEM;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.block.QuantumStuffBlock;
 import com.github.technus.tectech.thing.block.ReactorSimBlock;
@@ -37,13 +34,6 @@ public class ThingsLoader implements Runnable {
 
         QuantumStuffBlock.run();
         TecTech.LOGGER.info("Quantum Stuff registered");
-
-        if(Loader.isModLoaded("openmodularturrets")) {
-            TurretHeadEM.run();
-            TecTech.LOGGER.info("TurretHeadEM registered");
-            TurretBaseEM.run();
-            TecTech.LOGGER.info("TurretBaseEM registered");
-        }
 
         ReactorSimBlock.run();
         TecTech.LOGGER.info("Reactor Simulator registered");

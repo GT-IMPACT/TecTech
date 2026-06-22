@@ -2,7 +2,6 @@ package com.github.technus.tectech.proxy;
 
 import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.TecTech;
-import com.github.technus.tectech.compatibility.openmodularturrets.TT_turret_loader;
 import com.github.technus.tectech.entity.fx.BlockHint;
 import com.github.technus.tectech.entity.fx.WeightlessParticleFX;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
@@ -14,7 +13,6 @@ import com.github.technus.tectech.thing.item.ElementalDefinitionContainer_EM;
 import com.github.technus.tectech.thing.item.renderElemental.RenderElementalName;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Loader;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -40,10 +38,6 @@ public class ClientProxy extends CommonProxy {
 
         MinecraftForgeClient.registerItemRenderer(ElementalDefinitionContainer_EM.INSTANCE, RenderElementalName.INSTANCE);
         MinecraftForgeClient.registerItemRenderer(DebugElementalInstanceContainer_EM.INSTANCE, RenderElementalName.INSTANCE);
-
-        if(Loader.isModLoaded("openmodularturrets")) {
-            new TT_turret_loader().run();
-        }
     }
 
     @Override

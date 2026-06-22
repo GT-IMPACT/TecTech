@@ -181,7 +181,7 @@ public class TT_NEI_ResearchHandler extends TemplateRecipeHandler {
     }
 
     @Override
-    public List<String> handleItemTooltip(GuiRecipe gui, ItemStack aStack, List<String> currenttip, int aRecipeIndex) {
+    public List<String> handleItemTooltip(GuiRecipe<?> gui, ItemStack aStack, List<String> currenttip, int aRecipeIndex) {
         TemplateRecipeHandler.CachedRecipe tObject = arecipes.get(aRecipeIndex);
         if (tObject instanceof CachedDefaultRecipe) {
             CachedDefaultRecipe tRecipe = (CachedDefaultRecipe) tObject;
