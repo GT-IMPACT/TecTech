@@ -11,6 +11,7 @@ import com.github.technus.tectech.mechanics.data.ChunkDataHandler;
 import com.github.technus.tectech.mechanics.data.PlayerPersistence;
 import com.github.technus.tectech.mechanics.elementalMatter.core.commands.GiveEM;
 import com.github.technus.tectech.mechanics.elementalMatter.core.commands.ListEM;
+import com.github.technus.tectech.mechanics.enderStorage.EnderWorldSavedData;
 import com.github.technus.tectech.proxy.CommonProxy;
 import com.github.technus.tectech.util.XSTR;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -46,6 +47,7 @@ public class TecTech {
     private static IngameErrorLog moduleAdminErrorLogs;
     public static TecTechConfig configTecTech;
 
+    public static EnderWorldSavedData enderWorldSavedData;
     public static ChunkDataHandler chunkDataHandler;
     public static AnomalyHandler anomalyHandler;
     public static PlayerPersistence playerPersistence;
@@ -91,6 +93,10 @@ public class TecTech {
         chunkDataHandler=new  ChunkDataHandler();
         FMLCommonHandler.instance().bus().register(chunkDataHandler);
         MinecraftForge.EVENT_BUS.register(chunkDataHandler);
+
+        enderWorldSavedData = new EnderWorldSavedData();
+        FMLCommonHandler.instance().bus().register(enderWorldSavedData);
+        MinecraftForge.EVENT_BUS.register(enderWorldSavedData);
 
         MainLoader.preLoad();
     }
