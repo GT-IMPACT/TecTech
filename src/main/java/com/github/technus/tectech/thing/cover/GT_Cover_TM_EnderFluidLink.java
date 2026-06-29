@@ -20,6 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+import org.lwjgl.opengl.GL11;
 
 import java.util.UUID;
 
@@ -158,7 +159,13 @@ public class GT_Cover_TM_EnderFluidLink extends GT_CoverBehavior {
         private final static int EXPORT_BUTTON_ID = 4;
 
         private GT_GuiIconButton newButtonWithSpacing(int id, int x, int y, GT_GuiIcon icon) {
-            return new GT_GuiIconButton(this, id, START_X + SPACE_X * x, START_Y + SPACE_Y * y, icon);
+            return new GT_GuiIconButton(this, id, START_X + SPACE_X * x, START_Y + SPACE_Y * y, icon) {
+                @Override
+                public void draw(int mouseX, int mouseY, float parTicks) {
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                    super.draw(mouseX, mouseY, parTicks);
+                }
+            };
         }
 
         private GT_GuiTextBox newTextField(int id, int x, int y) {
@@ -295,6 +302,18 @@ public class GT_Cover_TM_EnderFluidLink extends GT_CoverBehavior {
             @Override
             public boolean validChar(char c, int key) {
                 return true;
+            }
+
+            @Override
+            public void draw(int mouseX, int mouseY, float parTicks) {
+                super.draw(mouseX, mouseY, parTicks);
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            }
+
+            @Override
+            public void drawTextBox() {
+                super.drawTextBox();
+                org.lwjgl.opengl.GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             }
         }
 
