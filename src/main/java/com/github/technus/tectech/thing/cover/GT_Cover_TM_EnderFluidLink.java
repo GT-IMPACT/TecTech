@@ -66,6 +66,7 @@ public class GT_Cover_TM_EnderFluidLink extends GT_CoverBehavior {
         if ((aTileEntity instanceof IFluidHandler)) {
             IFluidHandler fluidHandlerSelf = (IFluidHandler) aTileEntity;
             IFluidHandler fluidHandlerEnder = getEnderFluidContainer(getEnderLinkTag((IFluidHandler) aTileEntity));
+            if (fluidHandlerEnder == null) return aCoverVariable;
 
             if (testBit(aCoverVariable, IMPORT_EXPORT_MASK)) {
                 transferFluid(fluidHandlerEnder, (byte) 6, fluidHandlerSelf, aSide, L_PER_TICK);
@@ -233,6 +234,7 @@ public class GT_Cover_TM_EnderFluidLink extends GT_CoverBehavior {
                 ownerUUID = null;
             }
             EnderLinkTag newTag = new EnderLinkTag(tag.getFrequency(), ownerUUID);
+            tag = newTag;
             NetworkDispatcher.INSTANCE.sendToServer(new EnderLinkCoverMessage.EnderLinkCoverUpdate(newTag, (IFluidHandler) tile));
         }
 

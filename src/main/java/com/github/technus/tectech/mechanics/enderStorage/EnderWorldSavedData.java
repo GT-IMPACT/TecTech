@@ -5,7 +5,7 @@ import static com.github.technus.tectech.Reference.MODID;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
 
 public class EnderWorldSavedData extends WorldSavedData {
 
@@ -31,6 +32,7 @@ public class EnderWorldSavedData extends WorldSavedData {
 
     private Map<EnderLinkTag, EnderFluidContainer> EnderLiquidTagLink = new HashMap<>();
     private Map<EnderLinkTank, EnderLinkTag> EnderLiquidTankLink = new HashMap<>();
+    private NBTTagCompound failedLoadData;
 
     public EnderWorldSavedData() {
         super(DATA_NAME);
@@ -40,34 +42,53 @@ public class EnderWorldSavedData extends WorldSavedData {
         super(s);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         try {
-            byte[] ba = nbtTagCompound.getByteArray(ENDER_LIQUID_TAG_LINK);
-            InputStream is = new ByteArrayInputStream(ba);
-            ObjectInputStream ois = new ObjectInputStream(is);
-            Object data = ois.readObject();
-            EnderLiquidTagLink = (Map<EnderLinkTag, EnderFluidContainer>) data;
-        } catch (IOException | ClassNotFoundException ignored) {
-            System.out.println("ENDER_LIQUID_TAG_LINK LOAD FAILED");
-            System.out.println(ignored);
+            if (nbtTagCompound.hasKey(ENDER_LIQUID_TAG_LINK) != nbtTagCompound.hasKey(ENDER_LIQUID_TANK_LINK)) {
+                throw new InvalidObjectException("Incomplete ender fluid link data");
+            }
+            Map<EnderLinkTag, EnderFluidContainer> fluids = readMap(nbtTagCompound, ENDER_LIQUID_TAG_LINK,
+                    EnderLinkTag.class, EnderFluidContainer.class);
+            Map<EnderLinkTank, EnderLinkTag> tanks = readMap(nbtTagCompound, ENDER_LIQUID_TANK_LINK,
+                    EnderLinkTank.class, EnderLinkTag.class);
+            EnderLiquidTagLink = fluids;
+            EnderLiquidTankLink = tanks;
+            failedLoadData = null;
+        } catch (IOException | ClassNotFoundException | RuntimeException error) {
+            failedLoadData = (NBTTagCompound) nbtTagCompound.copy();
+            LogManager.getLogger("TecTech").error("Cannot load ender fluid links; transfers disabled and original data preserved", error);
         }
+    }
 
-        try {
-            byte[] ba = nbtTagCompound.getByteArray(ENDER_LIQUID_TANK_LINK);
-            InputStream is = new ByteArrayInputStream(ba);
-            ObjectInputStream ois = new ObjectInputStream(is);
-            Object data = ois.readObject();
-            EnderLiquidTankLink = (Map<EnderLinkTank, EnderLinkTag>) data;
-        } catch (IOException | ClassNotFoundException ignored) {
-            System.out.println("ENDER_LIQUID_TANK_LINK LOAD FAILED");
-            System.out.println(ignored);
+    @SuppressWarnings("unchecked")
+    private static <K, V> Map<K, V> readMap(NBTTagCompound nbt, String key, Class<K> keyType, Class<V> valueType)
+            throws IOException, ClassNotFoundException {
+        if (!nbt.hasKey(key)) return new HashMap<>();
+        try (ObjectInputStream input = new EnderStorageInputStream(new ByteArrayInputStream(nbt.getByteArray(key)))) {
+            Object data = input.readObject();
+            if (!(data instanceof Map)) throw new InvalidObjectException("Invalid ender fluid link map: " + key);
+            Map<?, ?> map = (Map<?, ?>) data;
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                if (!keyType.isInstance(entry.getKey()) || !valueType.isInstance(entry.getValue())) {
+                    throw new InvalidObjectException("Invalid ender fluid link entry: " + key);
+                }
+            }
+            return (Map<K, V>) map;
         }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
+        if (failedLoadData != null) {
+            if (failedLoadData.hasKey(ENDER_LIQUID_TAG_LINK)) {
+                nbtTagCompound.setByteArray(ENDER_LIQUID_TAG_LINK, failedLoadData.getByteArray(ENDER_LIQUID_TAG_LINK));
+            }
+            if (failedLoadData.hasKey(ENDER_LIQUID_TANK_LINK)) {
+                nbtTagCompound.setByteArray(ENDER_LIQUID_TANK_LINK, failedLoadData.getByteArray(ENDER_LIQUID_TANK_LINK));
+            }
+            return;
+        }
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -102,38 +123,43 @@ public class EnderWorldSavedData extends WorldSavedData {
                 storage.setData(DATA_NAME, INSTANCE);
             }
         }
-        INSTANCE.markDirty();
+        if (INSTANCE.failedLoadData == null) INSTANCE.markDirty();
     }
 
     private static Map<EnderLinkTag, EnderFluidContainer> getEnderLiquidLink() {
         loadInstance();
-        return INSTANCE.EnderLiquidTagLink;
+        return INSTANCE.failedLoadData == null ? INSTANCE.EnderLiquidTagLink : null;
     }
 
     private static Map<EnderLinkTank, EnderLinkTag> getEnderLiquidTankLink() {
         loadInstance();
-        return INSTANCE.EnderLiquidTankLink;
+        return INSTANCE.failedLoadData == null ? INSTANCE.EnderLiquidTankLink : null;
     }
 
     public static EnderFluidContainer getEnderFluidContainer(EnderLinkTag tag) {
-        if (!getEnderLiquidLink().containsKey(tag)) {
-            getEnderLiquidLink().put(tag, new EnderFluidContainer());
+        Map<EnderLinkTag, EnderFluidContainer> fluids = getEnderLiquidLink();
+        if (fluids == null || tag == null) return null;
+        if (!fluids.containsKey(tag)) {
+            fluids.put(tag, new EnderFluidContainer());
         }
-        return getEnderLiquidLink().get(tag);
+        return fluids.get(tag);
     }
 
     public static EnderLinkTag getEnderLinkTag(IFluidHandler handler) {
+        Map<EnderLinkTank, EnderLinkTag> tanks = getEnderLiquidTankLink();
+        if (tanks == null) return null;
         EnderLinkTank tank = new EnderLinkTank(handler);
-        if (!getEnderLiquidTankLink().containsKey(tank)) {
-            getEnderLiquidTankLink().put(tank, DEFAULT_LINK_TAG);
+        if (!tanks.containsKey(tank)) {
+            tanks.put(tank, DEFAULT_LINK_TAG);
         }
-        return getEnderLiquidTankLink().get(tank);
+        return tanks.get(tank);
     }
 
     public static void bindEnderLinkTag(IFluidHandler handler, EnderLinkTag tag) {
+        Map<EnderLinkTank, EnderLinkTag> tanks = getEnderLiquidTankLink();
+        if (tanks == null || tag == null) return;
         EnderLinkTank tank = new EnderLinkTank(handler);
-        getEnderLiquidTankLink().remove(tank);
-        getEnderLiquidTankLink().put(tank, tag);
+        tanks.put(tank, tag);
     }
 
     @SubscribeEvent

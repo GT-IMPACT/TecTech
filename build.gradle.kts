@@ -35,6 +35,8 @@ repositories {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+
     api("space.impact:ImpactAPI:0.0.4:dev")
     api("space.impact:Impact-Core:1.1.0.36:dev")
     api("space.impact:gregtech-impact:5.09.35.36:dev") { isTransitive = false }

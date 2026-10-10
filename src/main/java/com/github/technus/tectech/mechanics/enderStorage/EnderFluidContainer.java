@@ -2,6 +2,7 @@ package com.github.technus.tectech.mechanics.enderStorage;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -14,8 +15,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-
-import com.github.technus.tectech.TecTech;
 
 public class EnderFluidContainer implements IFluidHandler, Serializable {
 
@@ -120,14 +119,18 @@ public class EnderFluidContainer implements IFluidHandler, Serializable {
             case SERIALIZE_TYPE_WITH_NBT:
                 tag = CompressedStreamTools.read(new DataInputStream(in));
             case SERIALIZE_TYPE_WITHOUT_NBT:
-                fluidStack = FluidRegistry.getFluidStack(in.readUTF(), in.readInt());
+                String fluidName = in.readUTF();
+                int amount = in.readInt();
+                fluidStack = FluidRegistry.getFluidStack(fluidName, amount);
+                if (fluidStack == null || amount < 0 || amount > CAPACITY) {
+                    throw new InvalidObjectException("Invalid ender fluid: " + fluidName + " / " + amount);
+                }
                 break;
             case SERIALIZE_TYPE_NULL:
                 fluidStack = null;
                 break;
             default:
-                TecTech.LOGGER.error("Something very wrong... got a fluid container with state " + type);
-                fluidStack = null;
+                throw new InvalidObjectException("Unknown ender fluid container state: " + type);
         }
         if (fluidStack != null) fluidStack.tag = tag;
     }
