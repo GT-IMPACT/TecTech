@@ -75,7 +75,7 @@ public class GT_MetaTileEntity_EM_research extends GT_MetaTileEntity_MultiblockB
 					.addElement('B', ofBlock(sBlockCasingsTT, 2))
 					.addElement('C', ofBlock(sBlockCasingsTT, 3))
 					.addElement('D', ofHatchAdderOptional(GT_MetaTileEntity_EM_research::addClassicToMachineList, textureOffset + 1, 1, sBlockCasingsTT, 1))
-					.addElement('E', ofHatchAdder(GT_MetaTileEntity_EM_research::addHolderToMachineList, 3, 2))
+					.addElement('E', ofHatchAdder(GT_MetaTileEntity_EM_research::addHolderToMachineList, textureOffset + 3, 2))
 					.build();
 	private static LinkedHashMap<String, String> lServerNames;
 
