@@ -612,6 +612,7 @@ public class MachineLoader implements Runnable {
         Machine_DebugGenny.set(new GT_MetaTileEntity_DebugPowerGenerator(15498, "debug.tt.genny", "Debug Power Generator", 15).getStackForm(1L));
         Machine_DebugWriter.set(new GT_MetaTileEntity_DebugStructureWriter(15499, "debug.tt.writer", "Debug Structure Writer", 15).getStackForm(1L));
         UnusedStuff.set(new ItemStack(Blocks.air));
+        hatch_CreativeUncertainty.set(new GT_MetaTileEntity_Hatch_CreativeUncertainty(15500, "debug.tt.certain", "Uncertainty Resolution", 14).getStackForm(1));
 
         // ===================================================================================================
         // MetaTE init

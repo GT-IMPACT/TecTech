@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import static gregtech.api.enums.GT_Values.W;
 
 public enum CustomItemList implements IItemContainer {
-    hatch_CreativeMaintenance, hatch_CreativeData,
+    hatch_CreativeMaintenance, hatch_CreativeData, hatch_CreativeUncertainty,
     Machine_OwnerDetector, Machine_DataReader,
     Machine_BuckConverter_IV, Machine_BuckConverter_LuV, Machine_BuckConverter_ZPM,
     Machine_BuckConverter_UV, Machine_BuckConverter_UHV, Machine_BuckConverter_UEV,
