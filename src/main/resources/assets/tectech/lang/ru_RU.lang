@@ -887,3 +887,35 @@ tt.structure.hatch.Holder=Держатель объекта
 tt.structure.hatch.DataBank=Люк доступа к данным или передатчик банка данных
 tt.structure.hatch.Capacitor=Конденсатор или вспомогательный люк башни Теслы
 tt.structure.tesla_winding=уровень первичной обмотки Теслы (1–7)
+
+# Multiblock structure details
+tt.structure.hologram=В позициях, показанных голограммой
+tt.structure.required_position=Обязателен в отмеченной позиции; корпусом не заменяется
+tt.structure.casing_ranges=Диапазоны зависят от размера/варианта и замены корпусов хэтчами.
+tt.structure.classic_hatches=Белые позиции: ввод/вывод предметов и жидкостей, энергия, динамо, обслуживание и глушители.
+tt.structure.classic_data=Также допустимы параметризаторы, оптические порты и не более одного решателя неопределённости.
+tt.structure.elemental_hatches=Оранжевые позиции: ввод, вывод или отвод избыточной элементальной материи.
+tt.structure.essentia_storage=Хранилище эссенции
+tt.structure.computer.layers=Размер стека инструмента задаёт N = 1-12 слоёв стоек; длина равна N + 4.
+tt.structure.computer.casings=Для N слоёв: 2N + 4 обязательных компьютерных корпуса и до 14 в торцах.
+tt.structure.computer.racks=Продвинутые корпуса: 2N + 8 обязательных и 2N позиций для стоек либо корпусов.
+tt.structure.computer.clearance=Теплоотводы: 2N + 4. В каждом слое оставьте свободными две позиции со стороны теплоотводов.
+tt.structure.computer.ends=Ровно один в белой позиции любого торца
+tt.structure.computer.connections=Подайте энергию через энергохэтчи; для выдачи вычислений используйте оптические выходы данных.
+tt.structure.computer.uncertainty=Перед выдачей вычислений решите неопределённость.
+tt.structure.collider.tiers=Одна половина коллайдера. Нечётный стек: тир 1; чётный: тир 2. Общие материалы:
+tt.structure.collider.tier1=Тир 1: добавьте к общим материалам следующие блоки:
+tt.structure.collider.tier2=Тир 2: вместо дополнений тира 1 добавьте следующие блоки:
+tt.structure.bhg.dome=Нечётный стек: открытая структура; чётный: со стеклянным куполом.
+tt.structure.bhg.dome_location=Только для варианта со стеклянным куполом
+tt.structure.junction.sizes=Нечётный стек выбирает малый узел; чётный — большой.
+tt.structure.junction.small=Материалы малого узла:
+tt.structure.junction.large=Материалы большого узла:
+tt.structure.tesla_primary=Первичные обмотки Теслы
+tt.structure.titanium_frames=Титановые каркасы
+tt.structure.tesla_uniform=Все 20 первичных обмоток должны совпадать: Redstone, MV, HV, EV, IV, LuV либо ZPM.
+tt.structure.tesla_capacitors=Белые позиции основания: конденсаторы, энергия, жидкости, обслуживание и параметризаторы.
+tt.structure.transformer.io=Заменяйте не более 20 внешних корпусов энерговходами/выходами; оставьте минимум 5 корпусов.
+tt.structure.scanner.output=Обязательный элементальный выход должен смотреть в ту же сторону, что и контроллер.
+tt.structure.research.holder=Положите исследуемый предмет в держатель; подайте вычисления через оптический вход данных.
+tt.structure.computer.components=Установите вычислительные компоненты в компьютерные стойки.

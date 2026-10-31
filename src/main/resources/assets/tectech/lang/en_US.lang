@@ -887,3 +887,35 @@ tt.structure.hatch.Holder=Object Holder
 tt.structure.hatch.DataBank=Data Access or Data Bank Master Hatch
 tt.structure.hatch.Capacitor=Tesla capacitor or utility hatch
 tt.structure.tesla_winding=Tesla primary winding tier (1–7)
+
+# Multiblock structure details
+tt.structure.hologram=At the positions shown by the hologram
+tt.structure.required_position=Required at its marked position; cannot be replaced with casing
+tt.structure.casing_ranges=Ranges depend on the selected size/variant and replacement of casings with hatches.
+tt.structure.classic_hatches=White: item/fluid I/O, energy/dynamo, maintenance and muffler hatches.
+tt.structure.classic_data=Also accepts parameter, optical data hatches and at most one Uncertainty Resolver.
+tt.structure.elemental_hatches=Orange: elemental input, output or overflow hatches.
+tt.structure.essentia_storage=Essentia storage
+tt.structure.computer.layers=Tool stack size selects N = 1-12 rack layers; total length is N + 4.
+tt.structure.computer.casings=For N layers: 2N + 4 fixed Computer Casings, plus up to 14 in the end walls.
+tt.structure.computer.racks=Advanced Casings: 2N + 8 fixed, plus 2N positions for racks or casings.
+tt.structure.computer.clearance=Heat vents: 2N + 4. Keep the two vent-side air positions per layer clear.
+tt.structure.computer.ends=Exactly one in a white position on either end wall
+tt.structure.computer.connections=Supply energy through Energy Hatches; use optical Data Output Hatches to export computation.
+tt.structure.computer.uncertainty=Resolve uncertainty before computation can be delivered.
+tt.structure.collider.tiers=One collider half. Odd tool stack: tier 1; even stack: tier 2. Shared materials:
+tt.structure.collider.tier1=Tier 1: add these blocks to the shared materials:
+tt.structure.collider.tier2=Tier 2: add these blocks instead of the tier 1 additions:
+tt.structure.bhg.dome=Odd tool stack: open structure; even stack: add the glass dome.
+tt.structure.bhg.dome_location=Only for the glass-dome variant
+tt.structure.junction.sizes=Odd tool stack selects the small junction; even stack selects the large one.
+tt.structure.junction.small=Small junction materials:
+tt.structure.junction.large=Large junction materials:
+tt.structure.tesla_primary=Tesla Primary Windings
+tt.structure.titanium_frames=Titanium Frame Boxes
+tt.structure.tesla_uniform=All 20 primary windings must match: Redstone, MV, HV, EV, IV, LuV or ZPM.
+tt.structure.tesla_capacitors=White base positions accept capacitors, power, fluid, maintenance and parameter hatches.
+tt.structure.transformer.io=Replace at most 20 outer casings with energy input/output hatches; keep at least 5 casings.
+tt.structure.scanner.output=The required Elemental Output Hatch must face the same direction as the controller.
+tt.structure.research.holder=Place the research item in the Object Holder; supply computation through an optical data input.
+tt.structure.computer.components=Install computing components inside the Computer Racks.
