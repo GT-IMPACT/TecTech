@@ -19,6 +19,8 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchEl
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 import cpw.mods.fml.relauncher.Side;
 import gregtech.api.GregTech_API;
+import gregtech.api.enums.Casings;
+import gregtech.api.interfaces.ICasing;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_EnhancedMultiBlockBase;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_TooltipMultiBlockBase;
 import gregtech.api.util.GT_Config;
@@ -31,9 +33,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -44,6 +50,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.StringTranslate;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.junit.BeforeClass;
@@ -173,6 +182,121 @@ public class TecTechStructureMigrationTest {
             }
         }
         assertEquals(22, controllers);
+    }
+
+    @Test
+    public void allTooltipsKeepOriginalTextAndListMaterialsAfterLanguageReload() throws Exception {
+        List<String[]> expected = new ArrayList<>();
+        List<GT_MetaTileEntity_MultiblockBase_EM<?>> machines = new ArrayList<>();
+        try (BufferedReader reader = resource("tooltip-content.tsv")) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split("\\t", -1);
+                expected.add(fields);
+                machines.add(machine(fields[0]));
+            }
+        }
+        assertEquals(22, machines.size());
+        Map<Map<String, String>, Map<String, String>> originals = translationMaps();
+        try {
+            for (String locale : new String[] { "en_US", "ru_RU" }) {
+                Map<String, String> language = language("en_US");
+                language.putAll(language(locale));
+                for (Map<String, String> target : originals.keySet()) {
+                    target.putAll(language);
+                }
+                GT_MetaTileEntity_TooltipMultiBlockBase.invalidateTooltipCache();
+                for (int index = 0; index < machines.size(); index++) {
+                    GT_MetaTileEntity_MultiblockBase_EM<?> machine = machines.get(index);
+                    String[] fields = expected.get(index);
+                    String primary = plain(machine.getDescription());
+                    String structure = plain(machine.getSecondaryDescription());
+                    String hints = plain(machine.getStructureDescription(null));
+                    for (String key : fields[1].split(";")) {
+                        if (!key.isEmpty()) {
+                            assertTrue(fields[0] + " lost description " + key, primary.contains(language.get(key)));
+                        }
+                    }
+                    for (String key : fields[2].split(";")) {
+                        if (!key.isEmpty()) {
+                            String translated = language.get(key);
+                            assertTrue(fields[0] + " lost Shift explanation " + key, structure.contains(translated));
+                            assertTrue(fields[0] + " lost projector explanation " + key, hints.contains(translated));
+                        }
+                    }
+                    assertFalse(fields[0], structure.contains("gt.blockmachines."));
+                    assertFalse(fields[0], structure.contains("tt.structure."));
+                    for (String specification : fields[3].split(";")) {
+                        if (specification.isEmpty()) {
+                            continue;
+                        }
+                        String[] parts = specification.split(":");
+                        String[] casingName = parts[0].split("\\.");
+                        ICasing casing = casingName[0].equals("TecTechCasings")
+                                ? TecTechCasings.valueOf(casingName[1]) : Casings.valueOf(casingName[1]);
+                        String material = parts[1] + " " + casing.getDisplayName();
+                        assertTrue(fields[0] + " omits " + material, structure.contains(material));
+                    }
+                    if (!fields[0].endsWith("EM_transformer")) {
+                        assertTrue(fields[0], structure.contains(language.get("tt.structure.casing_ranges")));
+                    }
+                    if (fields[0].endsWith("EM_computer")) {
+                        assertTrue(structure.contains(language.get("tt.structure.computer.layers")));
+                        assertTrue(structure.contains("1 " + language.get("tt.structure.hatch.Uncertainty")));
+                        assertTrue(structure.contains(language.get("tt.structure.computer.uncertainty")));
+                    }
+                    if (fields[0].endsWith("EM_scanner")) {
+                        assertTrue(structure.contains(language.get("tt.structure.scanner.output")));
+                    }
+                }
+            }
+        } finally {
+            originals.forEach((target, original) -> {
+                target.clear();
+                target.putAll(original);
+            });
+            GT_MetaTileEntity_TooltipMultiBlockBase.invalidateTooltipCache();
+        }
+    }
+
+    private static String plain(String[] lines) {
+        return EnumChatFormatting.getTextWithoutFormattingCodes(String.join("\\n", lines));
+    }
+
+    private Map<String, String> language(String locale) throws Exception {
+        Map<String, String> result = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/assets/tectech/lang/" + locale + ".lang"), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                int separator = line.indexOf('=');
+                if (!line.startsWith("#") && separator > 0) {
+                    result.put(line.substring(0, separator), line.substring(separator + 1));
+                }
+            }
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<Map<String, String>, Map<String, String>> translationMaps() throws Exception {
+        Map<Map<String, String>, Map<String, String>> originals = new IdentityHashMap<>();
+        for (Field field : StatCollector.class.getDeclaredFields()) {
+            if (field.getType() != StringTranslate.class) {
+                continue;
+            }
+            field.setAccessible(true);
+            Object translator = field.get(null);
+            for (Field translations : StringTranslate.class.getDeclaredFields()) {
+                if (translations.getType() == Map.class) {
+                    translations.setAccessible(true);
+                    Map<String, String> entries = (Map<String, String>) translations.get(translator);
+                    originals.put(entries, new HashMap<>(entries));
+                }
+            }
+        }
+        assertFalse("The server-safe translation map must be available", originals.isEmpty());
+        return originals;
     }
 
     @Test
