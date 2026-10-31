@@ -165,9 +165,16 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.infuser.desc.1"));
         tooltip.addInfo(EnumChatFormatting.BLUE + translateToLocal("gt.blockmachines.multimachine.em.infuser.desc.2"));
         tooltip.addInfo(EnumChatFormatting.BLUE + translateToLocal("gt.blockmachines.multimachine.em.infuser.desc.3"));
+        tooltip.beginStructureBlock(3, 5, 3, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.MOLECULAR, 10, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.MOLECULAR_COIL, 16, false);
+        tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 18, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.infuser.hint", 1);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.infuser.hint"), HintColor.WHITE);
         return tooltip;
     }
 
