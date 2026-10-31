@@ -195,10 +195,15 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.tm.microwave.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.tm.microwave.desc.1"));
         tooltip.addInfo(EnumChatFormatting.BLUE + translateToLocal("gt.blockmachines.multimachine.tm.microwave.desc.2"));
+        tooltip.beginStructureBlock(5, 4, 5, false);
+        tooltip.addCasingInfoRange(Casings.CLEAN_STAINLESS_STEEL, 60, 72, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.1"));
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.tm.microwave.hint.0", 1);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.0"), HintColor.WHITE);
         tooltip.addStructureHint("gt.blockmachines.multimachine.tm.microwave.hint.1");
         return tooltip;
     }
