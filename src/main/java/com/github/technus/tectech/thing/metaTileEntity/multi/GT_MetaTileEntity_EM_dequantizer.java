@@ -143,11 +143,19 @@ public class GT_MetaTileEntity_EM_dequantizer extends GT_MetaTileEntity_Multiblo
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.emtomatter.desc.1"));
+        tooltip.beginStructureBlock(3, 3, 4, false);
+        tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 4, 12, false);
+        tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 10, 18, false);
+        tooltip.addOtherStructurePart(4, QuantumGlassBlock.INSTANCE.getLocalizedName(), translateToLocal("tt.structure.hologram"));
+        tooltip.addOtherStructurePart(1, TecTechHatchElement.ElementalInput.getDescription(), translateToLocal("tt.structure.required_position"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtomatter.hint.0", 1);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtomatter.hint.1", 2);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtomatter.hint.2", 3);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.2"), HintColor.MAGENTA);
         return tooltip;
     }
 
