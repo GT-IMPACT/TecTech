@@ -90,10 +90,22 @@ public class GT_MetaTileEntity_EM_crafting extends GT_MetaTileEntity_MultiblockB
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.crafter.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.crafter.desc.1"));
+        tooltip.beginStructureBlock(5, 5, 11, false);
+        tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 82, 98, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.ADVANCED_MOLECULAR, 60, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.CONTAINMENT_FIELD, 8, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.SPACETIME, 1, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.TELEPORTATION, 6, false);
+        tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 17, false);
+        tooltip.addOtherStructurePart(52, QuantumGlassBlock.INSTANCE.getLocalizedName(), translateToLocal("tt.structure.hologram"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.crafter.hint.0", 1);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.crafter.hint.1", 2);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.1"), HintColor.ORANGE);
         return tooltip;
     }
 
