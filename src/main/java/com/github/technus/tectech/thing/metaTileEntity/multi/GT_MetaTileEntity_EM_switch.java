@@ -199,10 +199,15 @@ public class GT_MetaTileEntity_EM_switch extends GT_MetaTileEntity_MultiblockBas
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.switch.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.switch.desc.1"));
+        tooltip.beginStructureBlock(3, 3, 3, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.ADVANCED_COMPUTER, 1, false);
+        tooltip.addCasingInfoRange(TecTechCasings.COMPUTER, 0, 25, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureInfo("1 - Classic/Data Hatches or Computer casing");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("1 - Classic/Data Hatches or Computer casing");
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.WHITE);
         return tooltip;
     }
 
