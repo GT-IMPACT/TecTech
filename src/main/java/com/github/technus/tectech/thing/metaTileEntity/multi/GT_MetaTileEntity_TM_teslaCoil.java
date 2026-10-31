@@ -459,10 +459,20 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.desc.1"));
         tooltip.addInfo(EnumChatFormatting.BLUE + translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.desc.2"));
+        tooltip.beginStructureBlock(7, 17, 7, false);
+        tooltip.addCasingInfoRange(TecTechCasings.TESLA_BASE, 17, 35, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.TESLA_TOROID, 128, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.TESLA_SECONDARY, 12, false);
+        tooltip.addOtherStructurePart(20, translateToLocal("tt.structure.tesla_primary"), translateToLocal("tt.structure.hologram"));
+        tooltip.addOtherStructurePart(16, translateToLocal("tt.structure.titanium_frames"), translateToLocal("tt.structure.hologram"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.tesla_uniform"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.tesla_capacitors"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.tm.teslaCoil.hint.0", 1);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.hint.0"), HintColor.WHITE);
         tooltip.addMasterChannel(translateToLocal("tt.structure.tesla_winding"));
+        tooltip.addStructureHint(translateToLocal("tt.structure.titanium_frames"), HintColor.ORANGE);
         return tooltip;
     }
 
