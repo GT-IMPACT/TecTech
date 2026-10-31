@@ -71,10 +71,21 @@ public class GT_MetaTileEntity_EM_stabilizer extends GT_MetaTileEntity_Multibloc
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.stabilizer.desc.1"));
+        tooltip.beginStructureBlock(5, 5, 5, false);
+        tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 16, 20, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.ADVANCED_MOLECULAR, 46, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.CONTAINMENT_FIELD, 16, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.SPACETIME, 5, false);
+        tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 17, false);
+        tooltip.addOtherStructurePart(12, QuantumGlassBlock.INSTANCE.getLocalizedName(), translateToLocal("tt.structure.hologram"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.stabilizer.hint.0", 1);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.stabilizer.hint.1", 2);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.1"), HintColor.ORANGE);
         return tooltip;
     }
 
