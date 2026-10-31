@@ -299,10 +299,25 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(Util.intBitsToString(TecTech.RANDOM.nextInt()));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.computer.desc"));
+        tooltip.beginVariableStructureBlock(2, 2, 4, 4, 5, 16, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.layers"));
+        tooltip.addCasingInfoRange(TecTechCasings.COMPUTER, 6, 42, false);
+        tooltip.addCasingInfoRange(TecTechCasings.ADVANCED_COMPUTER, 10, 56, false);
+        tooltip.addCasingInfoRange(TecTechCasings.COMPUTER_HEAT_VENT, 6, 28, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.casings"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.racks"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.clearance"));
+        tooltip.addOtherStructurePart(1, TecTechHatchElement.Uncertainty.getDescription(), translateToLocal("tt.structure.computer.ends"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.components"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.connections"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.uncertainty"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.computer.hint.0", 1);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.computer.hint.1", 2);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.1"), HintColor.ORANGE);
         return tooltip;
     }
 
