@@ -108,11 +108,13 @@ public class GT_MetaTileEntity_EM_transformer extends GT_MetaTileEntity_Multiblo
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.transformer.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.transformer.desc.1"));
         tooltip.addInfo(EnumChatFormatting.BLUE + translateToLocal("gt.blockmachines.multimachine.em.transformer.desc.2"));
-        tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.transformer.hint", 1);
+        tooltip.beginStructureBlock(3, 3, 3, false);
         tooltip.addCasingInfoMin(TecTechCasings.HIGH_POWER, STRUCTURE_REQUIREMENTS.getMinimumCasings(), false);
         tooltip.addCasingInfoExactly(Casings.SUPERCONDUCTING_COIL, 1, false);
+        tooltip.addStructureInfo(translateToLocal("tt.structure.transformer.io"));
+        tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
+        tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.transformer.hint"), HintColor.WHITE);
         return tooltip;
     }
 
