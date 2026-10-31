@@ -347,10 +347,19 @@ public class GT_MetaTileEntity_EM_research extends GT_MetaTileEntity_MultiblockB
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.research.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.research.desc.0"));
+        tooltip.beginStructureBlock(3, 7, 7, false);
+        tooltip.addCasingInfoRange(TecTechCasings.COMPUTER, 52, 61, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.COMPUTER_HEAT_VENT, 14, false);
+        tooltip.addCasingInfoExactly(TecTechCasings.ADVANCED_COMPUTER, 23, false);
+        tooltip.addOtherStructurePart(1, TecTechHatchElement.Holder.getDescription(), translateToLocal("tt.structure.required_position"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.research.holder"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
+        tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.research.hint.0", 1);
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.research.hint.1", 2);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.1"), HintColor.ORANGE);
         return tooltip;
     }
 
