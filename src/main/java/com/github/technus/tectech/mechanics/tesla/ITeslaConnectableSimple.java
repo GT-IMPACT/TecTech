@@ -1,6 +1,6 @@
 package com.github.technus.tectech.mechanics.tesla;
 
-import space.impact.api.util.Vec3Impl;
+import space.impact.structures.util.Vec3Impl;
 
 public interface ITeslaConnectableSimple {
     //-128 to -1 disables capability

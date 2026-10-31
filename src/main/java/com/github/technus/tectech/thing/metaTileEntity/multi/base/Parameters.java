@@ -36,9 +36,9 @@ public class Parameters {
         return eParamsOutStatus[hatchNo+10*parameterId];
     }
 
-    private final GT_MetaTileEntity_MultiblockBase_EM parent;
+    private final GT_MetaTileEntity_MultiblockBase_EM<?> parent;
 
-    Parameters(GT_MetaTileEntity_MultiblockBase_EM parent){
+    Parameters(GT_MetaTileEntity_MultiblockBase_EM<?> parent){
         this.parent=parent;
     }
 
@@ -312,7 +312,6 @@ public class Parameters {
             public String getBrief(){
                 return name.apply(parent,this);
             }
-
 
             @Override
             public int id() {

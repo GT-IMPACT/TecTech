@@ -1,10 +1,8 @@
 package com.github.technus.tectech.mechanics.spark;
 
-
-import space.impact.api.util.Vec3Impl;
-
 import java.io.Serializable;
 import java.util.Objects;
+import space.impact.structures.util.Vec3Impl;
 
 public class ThaumSpark implements Serializable {
     //This works regardless of if TC is loaded

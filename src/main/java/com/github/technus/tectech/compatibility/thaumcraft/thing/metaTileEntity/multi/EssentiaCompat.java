@@ -10,11 +10,11 @@ import net.minecraft.tileentity.TileEntity;
 public class EssentiaCompat {
     public static EssentiaCompat essentiaContainerCompat;
 
-    public boolean check(GT_MetaTileEntity_MultiblockBase_EM meta){
+    public boolean isContainer(TileEntity tile) {
         return false;
     }
 
-    public TileEntity getContainer(GT_MetaTileEntity_MultiblockBase_EM meta){
+    public TileEntity getContainer(GT_MetaTileEntity_MultiblockBase_EM<?> meta){
         return null;
     }
 

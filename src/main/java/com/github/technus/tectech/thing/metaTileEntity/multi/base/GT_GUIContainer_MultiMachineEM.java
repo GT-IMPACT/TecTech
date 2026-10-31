@@ -4,12 +4,11 @@ import com.github.technus.tectech.TecTech;
 import gregtech.api.gui.GT_GUIContainerMetaTile_Machine;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import java.util.List;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import java.util.List;
 
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
 
@@ -42,7 +41,7 @@ public class GT_GUIContainer_MultiMachineEM extends GT_GUIContainerMetaTile_Mach
     public void drawScreen(int mouseX, int mouseY, float par3) {
         super.drawScreen(mouseX, mouseY, par3);
         if (mContainer != null) {
-            if (mContainer.mTileEntity != null && mContainer.mTileEntity.getMetaTileEntity() instanceof GT_MetaTileEntity_MultiblockBase_EM) {
+            if (mContainer.mTileEntity != null && mContainer.mTileEntity.getMetaTileEntity() instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
                 LEDtooltips(mouseX, mouseY);
             }
         }
@@ -295,8 +294,8 @@ public class GT_GUIContainer_MultiMachineEM extends GT_GUIContainerMetaTile_Mach
         //drawHoveringText(Arrays.asList(""+x,""+y), -1, -11, fontRendererObj);
         if(mContainer.mTileEntity!=null){
             IMetaTileEntity mte=mContainer.mTileEntity.getMetaTileEntity();
-            if(mte instanceof GT_MetaTileEntity_MultiblockBase_EM){
-                Parameters parametrization=((GT_MetaTileEntity_MultiblockBase_EM)mte).parametrization;
+            if(mte instanceof GT_MetaTileEntity_MultiblockBase_EM<?>){
+                Parameters parametrization=((GT_MetaTileEntity_MultiblockBase_EM<?>)mte).parametrization;
                 parametrization.eParamsInStatus=mContainer.eParamsInStatus;
                 parametrization.eParamsOutStatus=mContainer.eParamsOutStatus;
                 parametrization.iParamsIn=mContainer.eParamsIn;
@@ -311,13 +310,13 @@ public class GT_GUIContainer_MultiMachineEM extends GT_GUIContainerMetaTile_Mach
                                 //if(mContainer.eParamsInStatus[hatch + (10*param)]==STATUS_UNUSED){
                                 //    return;
                                 //}
-                                hoveringText(((GT_MetaTileEntity_MultiblockBase_EM) mte).getFullLedDescriptionIn(hatch,param), renderPosX, renderPosY, fontRendererObj);
+                                hoveringText(((GT_MetaTileEntity_MultiblockBase_EM<?>) mte).getFullLedDescriptionIn(hatch,param), renderPosX, renderPosY, fontRendererObj);
                                 return;
                             }else if(y>=v && y<v+sv){
                                 //if(mContainer.eParamsOutStatus[hatch + (10*param)]==STATUS_UNUSED){
                                 //    return;
                                 //}
-                                hoveringText(((GT_MetaTileEntity_MultiblockBase_EM) mte).getFullLedDescriptionOut(hatch,param), renderPosX, renderPosY, fontRendererObj);
+                                hoveringText(((GT_MetaTileEntity_MultiblockBase_EM<?>) mte).getFullLedDescriptionOut(hatch,param), renderPosX, renderPosY, fontRendererObj);
                                 return;
                             }
                         }

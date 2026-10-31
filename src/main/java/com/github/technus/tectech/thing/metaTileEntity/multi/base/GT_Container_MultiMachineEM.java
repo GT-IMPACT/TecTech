@@ -68,7 +68,7 @@ public class GT_Container_MultiMachineEM extends GT_ContainerMetaTile_Machine {
         }
         Slot tSlot = (Slot) inventorySlots.get(aSlotIndex);
         if (tSlot != null && mTileEntity.getMetaTileEntity() != null) {
-            GT_MetaTileEntity_MultiblockBase_EM mte = (GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity();
+            GT_MetaTileEntity_MultiblockBase_EM<?> mte = (GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity();
             IGregTechTileEntity base = mte.getBaseMetaTileEntity();
             switch (aSlotIndex) {
                 case 0:
@@ -115,15 +115,15 @@ public class GT_Container_MultiMachineEM extends GT_ContainerMetaTile_Machine {
         if (mTileEntity.isClientSide() || mTileEntity.getMetaTileEntity() == null || eParamsInStatus == null) {
             return;
         }
-        eParamsInStatus = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).parametrization.eParamsInStatus;
-        eParamsOutStatus = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).parametrization.eParamsOutStatus;
-        eParamsIn= ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).parametrization.iParamsIn;
-        eParamsOut= ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).parametrization.iParamsOut;
-        eCertainMode = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).eCertainMode;
-        eCertainStatus = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).eCertainStatus;
-        ePowerPass = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).ePowerPass;
-        ePowerPassCover = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).ePowerPassCover;
-        eSafeVoid = ((GT_MetaTileEntity_MultiblockBase_EM) mTileEntity.getMetaTileEntity()).eSafeVoid;
+        eParamsInStatus = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).parametrization.eParamsInStatus;
+        eParamsOutStatus = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).parametrization.eParamsOutStatus;
+        eParamsIn= ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).parametrization.iParamsIn;
+        eParamsOut= ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).parametrization.iParamsOut;
+        eCertainMode = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).eCertainMode;
+        eCertainStatus = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).eCertainStatus;
+        ePowerPass = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).ePowerPass;
+        ePowerPassCover = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).ePowerPassCover;
+        eSafeVoid = ((GT_MetaTileEntity_MultiblockBase_EM<?>) mTileEntity.getMetaTileEntity()).eSafeVoid;
         allowedToWork = mTileEntity.isAllowedToWork();
 
         for (Object crafter : crafters) {

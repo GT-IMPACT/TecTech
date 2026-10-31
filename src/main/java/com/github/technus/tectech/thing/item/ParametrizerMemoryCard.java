@@ -1,15 +1,16 @@
 package com.github.technus.tectech.thing.item;
 
-import com.github.technus.tectech.util.CommonValues;
-import com.github.technus.tectech.util.Util;
 import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_Hatch_Param;
 import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_Hatch_ParamText;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.util.CommonValues;
+import com.github.technus.tectech.util.Util;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 import static com.github.technus.tectech.Reference.MODID;
 import static com.github.technus.tectech.loader.gui.CreativeTabTecTech.creativeTabTecTech;
@@ -72,8 +71,8 @@ public final class ParametrizerMemoryCard extends Item {
                             tNBT.removeTag("value1s");
                         }
                         return true;
-                    } else if (metaTE instanceof GT_MetaTileEntity_MultiblockBase_EM) {
-                        GT_MetaTileEntity_MultiblockBase_EM base = (GT_MetaTileEntity_MultiblockBase_EM) metaTE;
+                    } else if (metaTE instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
+                        GT_MetaTileEntity_MultiblockBase_EM<?> base = (GT_MetaTileEntity_MultiblockBase_EM<?>) metaTE;
                         if (aStack.getTagCompound() == null) {
                             aStack.setTagCompound(new NBTTagCompound());
                         }
