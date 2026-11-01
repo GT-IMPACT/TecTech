@@ -44,7 +44,7 @@ public class GT_MetaTileEntity_EM_transformer extends GT_MetaTileEntity_Multiblo
                             {"111", "111", "111",},
                     })
                     .addElement('0', Casings.SUPERCONDUCTING_COIL.asElement())
-                    .addElement('1', withHint(buildHatchAdder(GT_MetaTileEntity_EM_transformer.class).allow(TecTechHatchElement.EnergyIO).buildAndChain(STRUCTURE_REQUIREMENTS, t -> t.casingCount++), HintColor.WHITE))
+                    .addElement('1', withHint(buildHatchAdder(GT_MetaTileEntity_EM_transformer.class).allow(TecTechHatchElement.EnergyIO).buildAndChain(STRUCTURE_REQUIREMENTS, t -> t.casingCount++), HintColor.YELLOW))
                     .build();
     private int casingCount = 0;
     //endregion
@@ -114,7 +114,7 @@ public class GT_MetaTileEntity_EM_transformer extends GT_MetaTileEntity_Multiblo
         tooltip.addStructureInfo(translateToLocal("tt.structure.transformer.io"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.transformer.hint"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.transformer.hint"), HintColor.YELLOW);
         return tooltip;
     }
 

@@ -117,9 +117,9 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
                     .addElement('C', TecTechCasings.ULTIMATE_MOLECULAR.asElement())
                     .addElement('D', TecTechCasings.ULTIMATE_ADVANCED_MOLECULAR.asElement())
                     .addElement('E', TecTechCasings.ULTIMATE_CONTAINMENT_FIELD.asElement())
-                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('G', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
     //region variables
     private static Textures.BlockIcons.CustomIcon ScreenOFF;
@@ -296,8 +296,8 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.1"), HintColor.LIME);
         return tooltip;
     }
 

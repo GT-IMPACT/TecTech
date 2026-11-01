@@ -59,6 +59,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import space.impact.structures.Main;
+import space.impact.structures.hint.HintColor;
 import space.impact.structures.alignment.constructable.ISurvivalConstructable;
 import space.impact.structures.alignment.enumerable.ExtendedFacing;
 import space.impact.structures.structure.IStructureElement;
@@ -332,6 +333,8 @@ public class TecTechStructureMigrationTest {
                     assertEquals(name, changes, world.changes);
                     assertFalse(name, hints.positions.isEmpty());
                     assertFalse(name, hints.frames.isEmpty());
+                    assertFalse("White frames hide on TecTech casings: " + name,
+                            hints.frames.containsValue(HintColor.WHITE));
                     Set<String> first = new HashSet<>(hints.positions);
                     hints.clear();
                     machine.construct(new ItemStack(Items.stick, size), true);

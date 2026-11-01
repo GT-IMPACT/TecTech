@@ -67,8 +67,8 @@ public class GT_MetaTileEntity_EM_decay extends GT_MetaTileEntity_MultiblockBase
                     .addElement('B', TecTechCasings.ADVANCED_MOLECULAR.asElement())
                     .addElement('C', TecTechCasings.CONTAINMENT_FIELD.asElement())
                     .addElement('D', TecTechCasings.HOLLOW.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_decay.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
-                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_decay.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_decay.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_decay.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_EM_decay> FLOW_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.em.decay.conf");//Ampere divider
     //endregion
@@ -171,8 +171,8 @@ public class GT_MetaTileEntity_EM_decay extends GT_MetaTileEntity_MultiblockBase
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.1"), HintColor.LIME);
         return tooltip;
     }
 

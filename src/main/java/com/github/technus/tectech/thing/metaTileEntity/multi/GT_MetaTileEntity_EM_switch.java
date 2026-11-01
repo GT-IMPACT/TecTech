@@ -57,7 +57,7 @@ public class GT_MetaTileEntity_EM_switch extends GT_MetaTileEntity_MultiblockBas
                             {"BBB", "BBB", "BBB"}
                     }))
                     .addElement('A', TecTechCasings.ADVANCED_COMPUTER.asElement())
-                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_EM_switch.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.WHITE))
+                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_EM_switch.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.GREEN))
                     .build();
     //region parameters
     private static final INameFunction<GT_MetaTileEntity_EM_switch> ROUTE_NAME =
@@ -207,7 +207,7 @@ public class GT_MetaTileEntity_EM_switch extends GT_MetaTileEntity_MultiblockBas
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.GREEN);
         return tooltip;
     }
 

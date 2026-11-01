@@ -50,8 +50,8 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
                     }))
                     .addElement('A', TecTechCasings.COMPUTER.asElement())
                     .addElement('B', TecTechCasings.COMPUTER_HEAT_VENT.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.DataBank).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.ORANGE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.DataBank).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.PURPLE))
                     .build();
     //region variables
     private final ArrayList<GT_MetaTileEntity_Hatch_OutputDataItems> eStacksDataOutputs = new ArrayList<>();
@@ -129,8 +129,8 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.1"), HintColor.PURPLE);
         return tooltip;
     }
 

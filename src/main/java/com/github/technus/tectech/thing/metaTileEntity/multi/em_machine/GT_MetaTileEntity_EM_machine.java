@@ -65,8 +65,8 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
                     .addElement('1', ofBlock(QuantumGlassBlock.INSTANCE, 0))
                     .addElement('2', TecTechCasings.ADVANCED_MOLECULAR.asElement())
                     .addElement('3', TecTechCasings.CONTAINMENT_FIELD.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     private static final IStatusFunction<GT_MetaTileEntity_EM_machine> SRC_STATUS =
             (base, p) -> {
@@ -217,8 +217,8 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.1"), HintColor.LIME);
         return tooltip;
     }
 

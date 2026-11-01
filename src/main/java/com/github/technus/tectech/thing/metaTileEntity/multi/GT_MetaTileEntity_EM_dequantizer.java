@@ -55,10 +55,10 @@ public class GT_MetaTileEntity_EM_dequantizer extends GT_MetaTileEntity_Multiblo
                     }))
                     .addElement('A', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('D', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.MAGENTA))
-                    .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalInput).build()))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_dequantizer.class).hint(HintColor.BLUE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalInput).build()))
                     .build();
 
     //endregion
@@ -153,9 +153,9 @@ public class GT_MetaTileEntity_EM_dequantizer extends GT_MetaTileEntity_Multiblo
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.1"), HintColor.ORANGE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.2"), HintColor.MAGENTA);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.1"), HintColor.BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.2"), HintColor.LIME);
         return tooltip;
     }
 

@@ -48,9 +48,9 @@ public class GT_MetaTileEntity_EM_crafting extends GT_MetaTileEntity_MultiblockB
             .addElement('C', TecTechCasings.CONTAINMENT_FIELD.asElement())
             .addElement('D', TecTechCasings.SPACETIME.asElement())
             .addElement('E', TecTechCasings.TELEPORTATION.asElement())
-            .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_crafting.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+            .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_crafting.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
             .addElement('G', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-            .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_crafting.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+            .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_crafting.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
             .build();
     //endregion
     //region variables
@@ -104,8 +104,8 @@ public class GT_MetaTileEntity_EM_crafting extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.1"), HintColor.LIME);
         return tooltip;
     }
 

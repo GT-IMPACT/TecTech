@@ -68,8 +68,8 @@ public class GT_MetaTileEntity_EM_research extends GT_MetaTileEntity_MultiblockB
                     .addElement('A', TecTechCasings.COMPUTER.asElement())
                     .addElement('B', TecTechCasings.COMPUTER_HEAT_VENT.asElement())
                     .addElement('C', TecTechCasings.ADVANCED_COMPUTER.asElement())
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_research.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.WHITE))
-                    .addElement('E', buildHatchAdder(GT_MetaTileEntity_EM_research.class).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).atLeast(TecTechHatchElement.Holder).build()))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_research.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.GREEN))
+                    .addElement('E', buildHatchAdder(GT_MetaTileEntity_EM_research.class).hint(HintColor.PURPLE).build(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).atLeast(TecTechHatchElement.Holder).build()))
                     .build();
     private static LinkedHashMap<String, String> lServerNames;
 
@@ -358,8 +358,8 @@ public class GT_MetaTileEntity_EM_research extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.research.hint.1"), HintColor.PURPLE);
         return tooltip;
     }
 

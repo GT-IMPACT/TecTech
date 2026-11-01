@@ -63,9 +63,9 @@ public class GT_MetaTileEntity_EM_quantizer extends GT_MetaTileEntity_Multiblock
                     }))
                     .addElement('A', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_quantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_quantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('D', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_quantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.MAGENTA))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_quantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_quantizer.class).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalOutput).build()))
                     .build();
     //endregion
@@ -195,9 +195,9 @@ public class GT_MetaTileEntity_EM_quantizer extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.1"), HintColor.ORANGE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.2"), HintColor.MAGENTA);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.2"), HintColor.LIME);
         return tooltip;
     }
 

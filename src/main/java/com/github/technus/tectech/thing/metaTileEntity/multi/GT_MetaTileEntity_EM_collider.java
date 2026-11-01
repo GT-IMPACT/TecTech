@@ -104,11 +104,11 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
                     .addElement('C', defer(t -> (int) t.eTier, (t, item) -> 2 - (item.stackSize & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.CONTAINMENT_FIELD.asElement()))
                     .addElement('D', TecTechCasings.MOLECULAR_COIL.asElement())
                     .addElement('E', defer(t -> (int) t.eTier, (t, item) -> 2 - (item.stackSize & 1), error(), TecTechCasings.HOLLOW.asElement(), TecTechCasings.SPACETIME.asElement()))
-                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.MAGENTA))
-                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIGHT_BLUE))
-                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
                     .addElement('I', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('J', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('J', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
     //region variables
     private static Textures.BlockIcons.CustomIcon ScreenOFF;
@@ -587,10 +587,10 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.4"));
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.1"), HintColor.ORANGE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.2"), HintColor.MAGENTA);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.3"), HintColor.LIGHT_BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.1"), HintColor.BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.2"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.3"), HintColor.LIME);
         tooltip.addStructureHint("gt.blockmachines.multimachine.em.collider.hint.4");
         return tooltip;
     }

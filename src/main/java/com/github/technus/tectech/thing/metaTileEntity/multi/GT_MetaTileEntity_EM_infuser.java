@@ -52,7 +52,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
                     }))
                     .addElement('A', TecTechCasings.MOLECULAR.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR_COIL.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_infuser.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_infuser.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
 
     public GT_MetaTileEntity_EM_infuser(int aID, String aName, String aNameRegional) {
@@ -174,7 +174,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.infuser.hint"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.infuser.hint"), HintColor.GREEN);
         return tooltip;
     }
 

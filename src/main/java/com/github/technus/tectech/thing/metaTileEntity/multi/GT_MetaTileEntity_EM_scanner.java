@@ -79,11 +79,11 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
                     }))
                     .addElement('A', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('D', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIGHT_BLUE))
-                    .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalInput).build()))
-                    .addElement('G', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hatchFacing((machine, tile) -> machine.getExtendedFacing().getDirection()).hint(HintColor.MAGENTA).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalOutput).build()))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hint(HintColor.BLUE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalInput).build()))
+                    .addElement('G', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hatchFacing((machine, tile) -> machine.getExtendedFacing().getDirection()).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalOutput).build()))
                     .build();
     //region parameters
     private static final INameFunction<GT_MetaTileEntity_EM_scanner> CONFIG_NAME =
@@ -333,10 +333,10 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.1"), HintColor.ORANGE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.2"), HintColor.MAGENTA);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.3"), HintColor.LIGHT_BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.1"), HintColor.BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.2"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.3"), HintColor.LIME);
         return tooltip;
     }
 

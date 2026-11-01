@@ -80,11 +80,11 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
                             {" AA"},
                             {" AA"}
                     }))
-                    .addElement('A', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.All).atLeast(TecTechHatchElement.Uncertainty).buildAndChain(TecTechCasings.COMPUTER), HintColor.WHITE))
+                    .addElement('A', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.All).atLeast(TecTechHatchElement.Uncertainty).buildAndChain(TecTechCasings.COMPUTER), HintColor.GREEN))
                     .addElement('B', TecTechCasings.COMPUTER.asElement())
                     .addElement('C', TecTechCasings.COMPUTER_HEAT_VENT.asElement())
                     .addElement('D', TecTechCasings.ADVANCED_COMPUTER.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.Rack).buildAndChain(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).build()), HintColor.ORANGE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.Rack).buildAndChain(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).build()), HintColor.PURPLE))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_EM_computer> OC_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.em.computer.cfgi.0");//Overclock ratio
     //endregion
@@ -316,8 +316,8 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.1"), HintColor.PURPLE);
         return tooltip;
     }
 

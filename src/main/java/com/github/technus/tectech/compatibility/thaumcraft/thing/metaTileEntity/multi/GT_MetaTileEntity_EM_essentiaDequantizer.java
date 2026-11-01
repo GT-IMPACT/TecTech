@@ -50,9 +50,9 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
                     .addElement('1', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('2', TecTechCasings.MOLECULAR.asElement())
                     .addElement('3', TecTechCasings.HOLLOW.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.MAGENTA))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('F', new EssentiaContainerElement<>())
                     .build();
     //endregion
@@ -119,9 +119,9 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_data"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.1"), HintColor.ORANGE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.2"), HintColor.MAGENTA);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.1"), HintColor.BLUE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.2"), HintColor.LIME);
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.3"));
         tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtoessentia.hint.3");
         return tooltip;

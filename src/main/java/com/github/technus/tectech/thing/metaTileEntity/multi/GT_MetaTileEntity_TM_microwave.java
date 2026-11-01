@@ -64,7 +64,7 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
                             {"ABBBA", "BAAAB", "BAAAB", "BAAAB", "ABBBA"}
                     }))
                     .addElement('A', Casings.CLEAN_STAINLESS_STEEL.asElement())
-                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_TM_microwave.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(Casings.CLEAN_STAINLESS_STEEL, 0).build()), HintColor.WHITE))
+                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_TM_microwave.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(Casings.CLEAN_STAINLESS_STEEL, 0).build()), HintColor.GREEN))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_TM_microwave> POWER_SETTING_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.tm.microwave.cfgi.0");//Power setting
     //endregion
@@ -203,7 +203,7 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.1"));
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.0"), HintColor.WHITE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint("gt.blockmachines.multimachine.tm.microwave.hint.1");
         return tooltip;
     }

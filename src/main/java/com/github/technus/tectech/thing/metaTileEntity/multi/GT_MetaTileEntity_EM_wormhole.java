@@ -50,9 +50,9 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
                     .addElement('B', TecTechCasings.TELEPORTATION.asElement())
                     .addElement('C', TecTechCasings.DIMENSIONAL_BRIDGE.asElement())
                     .addElement('D', TecTechCasings.ULTIMATE_MOLECULAR.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('F', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     //endregion
     //region variables
@@ -98,8 +98,8 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.1"), HintColor.LIME);
         return tooltip;
     }
 

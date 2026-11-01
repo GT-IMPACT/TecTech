@@ -41,9 +41,9 @@ public class GT_MetaTileEntity_EM_stabilizer extends GT_MetaTileEntity_Multibloc
                     .addElement('B', TecTechCasings.ADVANCED_MOLECULAR.asElement())
                     .addElement('C', TecTechCasings.CONTAINMENT_FIELD.asElement())
                     .addElement('D', TecTechCasings.SPACETIME.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_stabilizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.WHITE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_stabilizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('F', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_stabilizer.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_stabilizer.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     //endregion
 
@@ -84,8 +84,8 @@ public class GT_MetaTileEntity_EM_stabilizer extends GT_MetaTileEntity_Multibloc
         tooltip.addStructureInfo(translateToLocal("tt.structure.elemental_hatches"));
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.0"), HintColor.WHITE);
-        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.1"), HintColor.ORANGE);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.0"), HintColor.GREEN);
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.1"), HintColor.LIME);
         return tooltip;
     }
 
