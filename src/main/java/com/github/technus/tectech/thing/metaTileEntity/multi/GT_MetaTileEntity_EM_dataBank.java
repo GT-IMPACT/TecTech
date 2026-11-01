@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.mechanics.dataTransport.InventoryDataPacket;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
@@ -43,6 +44,7 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
     //endregion
     private static final IStructureDefinition<GT_MetaTileEntity_EM_dataBank> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_dataBank>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"BCCCB", "BDDDB", "BDDDB"},
                             {"BC~CB", "BAAAB", "BDDDB"},
@@ -131,7 +133,7 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.1"), HintColor.PURPLE);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

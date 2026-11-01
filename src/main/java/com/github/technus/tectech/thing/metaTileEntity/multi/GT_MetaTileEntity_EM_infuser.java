@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import cofh.api.energy.IEnergyContainerItem;
 import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.TecTech;
@@ -43,6 +44,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
     //endregion
     private static final IStructureDefinition<GT_MetaTileEntity_EM_infuser> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_infuser>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"CCC", "CCC", "CCC"},
                             {"BBB", "BAB", "BBB"},
@@ -175,7 +177,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.infuser.hint"), HintColor.GREEN);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.mechanics.elementalMatter.core.cElementalInstanceStackMap;
 import com.github.technus.tectech.mechanics.elementalMatter.core.stacks.cElementalInstanceStack;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
@@ -56,6 +57,7 @@ public class GT_MetaTileEntity_EM_decay extends GT_MetaTileEntity_MultiblockBase
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_decay> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_decay>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"A   A", "AAAAA", "A   A", "ABBBA", "ABCBA", "ABBBA", "A   A", "AAAAA", "A   A"},
                             {" FFF ", "AAAAA", " EEE ", "BDDDB", "BDDDB", "BDDDB", " EEE ", "AAAAA", " FFF "},
@@ -173,7 +175,7 @@ public class GT_MetaTileEntity_EM_decay extends GT_MetaTileEntity_MultiblockBase
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.decay.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

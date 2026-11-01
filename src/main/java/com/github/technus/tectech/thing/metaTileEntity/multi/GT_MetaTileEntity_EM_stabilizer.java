@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -30,6 +31,7 @@ public class GT_MetaTileEntity_EM_stabilizer extends GT_MetaTileEntity_Multibloc
 
     private static final IStructureDefinition<GT_MetaTileEntity_EM_stabilizer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_stabilizer>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {" AFA ", "BCBCB", "FBGBF", "BCBCB", " AFA "},
                             {"AEEEA", "CBBBC", "BBDBB", "CBBBC", "AEEEA"},
@@ -86,7 +88,7 @@ public class GT_MetaTileEntity_EM_stabilizer extends GT_MetaTileEntity_Multibloc
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.stabilizer.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

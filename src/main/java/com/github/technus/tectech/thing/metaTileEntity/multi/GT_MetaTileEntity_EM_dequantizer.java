@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.mechanics.elementalMatter.core.cElementalInstanceStackMap;
 import com.github.technus.tectech.mechanics.elementalMatter.core.stacks.cElementalInstanceStack;
 import com.github.technus.tectech.mechanics.elementalMatter.core.stacks.iHasElementalDefinition;
@@ -48,6 +49,7 @@ public class GT_MetaTileEntity_EM_dequantizer extends GT_MetaTileEntity_Multiblo
 
     private static final IStructureDefinition<GT_MetaTileEntity_EM_dequantizer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_dequantizer>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"CCC", "ABA", "EEE", "BDB"},
                             {"C~C", "BBB", "EBE", "DFD"},
@@ -156,7 +158,7 @@ public class GT_MetaTileEntity_EM_dequantizer extends GT_MetaTileEntity_Multiblo
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.1"), HintColor.BLUE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtomatter.hint.2"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

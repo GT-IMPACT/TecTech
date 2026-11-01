@@ -61,6 +61,9 @@ import org.junit.runner.RunWith;
 import space.impact.structures.Main;
 import space.impact.structures.hint.HintColor;
 import space.impact.structures.alignment.constructable.ISurvivalConstructable;
+import space.impact.structures.alignment.constructable.ChannelDataAccessor;
+import space.impact.structures.structure.IChannelDefinition;
+import gregtech.api.util.GTStructureChannels;
 import space.impact.structures.alignment.enumerable.ExtendedFacing;
 import space.impact.structures.structure.IStructureElement;
 import space.impact.structures.structure.ISurvivalBuildEnvironment;
@@ -176,6 +179,12 @@ public class TecTechStructureMigrationTest {
                 assertSame(cached, tooltip.invoke(machine));
                 assertTrue(machine.getDescription().length > 1);
                 assertTrue(machine.getSecondaryDescription().length > 0);
+                for (IChannelDefinition channel : machine.getStructureDefinition().getChannelDefinitions()) {
+                    assertTrue(name + " missing " + channel.getChannel(),
+                            String.join("\n", machine.getSecondaryDescription()).contains(channel.getChannel() + ":"));
+                    assertTrue(name + " missing channel hint",
+                            String.join("\n", machine.getStructureDescription(null)).contains(channel.getChannel() + ":"));
+                }
                 assertTrue(machine.getStructureDescription(null).length > 0);
                 GT_MetaTileEntity_TooltipMultiBlockBase.invalidateTooltipCache();
                 assertNotSame(cached, tooltip.invoke(machine));
@@ -336,9 +345,19 @@ public class TecTechStructureMigrationTest {
                     assertFalse("White frames hide on TecTech casings: " + name,
                             hints.frames.containsValue(HintColor.WHITE));
                     Set<String> first = new HashSet<>(hints.positions);
+                    Map<String, Block> firstBlocks = new HashMap<>(hints.blocks);
+                    Map<String, Integer> firstMetadata = new HashMap<>(hints.metadata);
                     hints.clear();
-                    machine.construct(new ItemStack(Items.stick, size), true);
+                    ItemStack named = new ItemStack(Items.stick, size == 1 ? 64 : 1);
+                    for (IChannelDefinition channel : machine.getStructureDefinition().getChannelDefinitions()) {
+                        if (!GTStructureChannels.HATCH.equals(channel.getChannel())) {
+                            ChannelDataAccessor.setChannelData(named, channel.getChannel(), size);
+                        }
+                    }
+                    machine.construct(named, true);
                     assertEquals(name, first, hints.positions);
+                    assertEquals(name, firstBlocks, hints.blocks);
+                    assertEquals(name, firstMetadata, hints.metadata);
                     assertEquals(name, changes, world.changes);
                 }
             }
@@ -391,7 +410,8 @@ public class TecTechStructureMigrationTest {
             world.putTile(0, 64, 0, tile);
             Source source = new Source(new ItemStack(Blocks.wool, 500, 1), new ItemStack(Blocks.wool, 500, 2), new ItemStack(Blocks.wool, 500, 3));
             ISurvivalBuildEnvironment environment = ISurvivalBuildEnvironment.create(source, new TestPlayer(world));
-            ItemStack trigger = new ItemStack(Items.stick, size);
+            ItemStack trigger = new ItemStack(Items.stick, size == 1 ? 64 : 1);
+            ChannelDataAccessor.setChannelData(trigger, GTStructureChannels.LENGTH, size);
             for (int attempt = 0; attempt < 100; attempt++) {
                 int previous = source.consumed;
                 int built = machine.survivalConstruct(trigger, 7, environment);
@@ -404,7 +424,7 @@ public class TecTechStructureMigrationTest {
             TestWorld creative = new TestWorld();
             GT_MetaTileEntity_EM_computer expected = new GT_MetaTileEntity_EM_computer("creative");
             creative.putTile(0, 64, 0, new TestTile(creative, expected, ForgeDirection.NORTH));
-            expected.construct(trigger, false);
+            expected.construct(new ItemStack(Items.stick, size), false);
             assertEquals(creative.blocks, world.blocks);
             assertEquals(creative.metadata, world.metadata);
             assertFalse("An uncertainty resolver is mandatory", machine.checkMachine(tile, null));

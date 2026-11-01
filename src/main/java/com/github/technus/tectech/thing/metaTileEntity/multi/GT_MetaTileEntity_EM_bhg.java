@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -42,6 +43,8 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
     //region structure actual
     private static final IStructureDefinition<GT_MetaTileEntity_EM_bhg> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_bhg>builder()
+                    .addChannel(GTStructureChannels.VARIANT, 1, 2)
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main_t1", transpose(new String[][]{
                             {"                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "               C C               ", "               C C               ", "               C C               ", "            CCCCCCCCC            ", "               C C               ", "            CCCCCCCCC            ", "               C C               ", "               C C               ", "               C C               ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 "},
                             {"                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "               C C               ", "               C C               ", "               C C               ", "               C C               ", "              DDDDD              ", "             DDCDCDD             ", "         CCCCDCCDCCDCCCC         ", "             DDDDDDD             ", "         CCCCDCCDCCDCCCC         ", "             DDCDCDD             ", "              DDDDD              ", "               C C               ", "               C C               ", "               C C               ", "               C C               ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 ", "                                 "},
@@ -288,7 +291,7 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
         tooltip.addCasingInfoExactly(TecTechCasings.ULTIMATE_CONTAINMENT_FIELD, 216, false);
         tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 0, 8, false);
         tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 36, false);
-        tooltip.addStructureInfo(translateToLocal("tt.structure.bhg.dome"));
+        tooltip.addSubChannel(GTStructureChannels.VARIANT, translateToLocal("tt.structure.bhg.dome"));
         tooltip.addOtherStructurePart(1920, QuantumGlassBlock.INSTANCE.getLocalizedName(), translateToLocal("tt.structure.bhg.dome_location"));
         tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
@@ -298,7 +301,7 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override
@@ -320,14 +323,14 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
         try {
-            buildPiece((stackSize.stackSize & 1) == 1 ? "main_t1" : "main_t2", stackSize, hintsOnly, 16, 16, 0);
+            buildPiece((GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1 ? "main_t1" : "main_t2", stackSize, hintsOnly, 16, 16, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     @Override
     public int survivalConstruct(ItemStack stackSize, int budget, ISurvivalBuildEnvironment environment) {
-        return survivalBuildPiece((stackSize.stackSize & 1) == 1 ? "main_t1" : "main_t2", stackSize, 16, 16, 0, budget, environment);
+        return survivalBuildPiece((GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1 ? "main_t1" : "main_t2", stackSize, 16, 16, 0, budget, environment);
     }
 
 }

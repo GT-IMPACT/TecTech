@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.GTStructureChannels;
 import gregtech.api.util.StructureRequirements;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -39,6 +40,7 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
     //use multi A energy inputs, use less power the longer it runs
     private static final IStructureDefinition<GT_MetaTileEntity_EM_essentiaDequantizer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_essentiaDequantizer>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", new String[][] {
                             {"CCC", "C~C", "CCC"},
                             {"0 0", " F ", "0 0"},
@@ -124,7 +126,7 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.2"), HintColor.LIME);
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.3"));
         tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtoessentia.hint.3");
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

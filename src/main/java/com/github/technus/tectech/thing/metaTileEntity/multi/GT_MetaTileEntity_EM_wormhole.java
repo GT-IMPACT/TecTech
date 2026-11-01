@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -35,6 +36,7 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_wormhole> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_wormhole>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"         ", "         ", "         ", "         ", "         ", "    D    ", "  DDDDD  ", "  DGGGD  ", "  DGGGD  ", "  DGGGD  ", "  DDDDD  "},
                             {"         ", "         ", "         ", "    D    ", "    D    ", "    D    ", " DDAAADD ", " EABBBAE ", " EABBBAE ", " EABBBAE ", " DDAAADD "},
@@ -100,7 +102,7 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

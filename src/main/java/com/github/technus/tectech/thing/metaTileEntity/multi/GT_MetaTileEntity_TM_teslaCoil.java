@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.loader.NetworkDispatcher;
 import com.github.technus.tectech.mechanics.spark.RendererMessage;
@@ -90,6 +91,8 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_TM_teslaCoil> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_TM_teslaCoil>builder()
+                    .addChannel(GTStructureChannels.COIL, 1, 7)
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"       ", "       ", "  BBB  ", "  BBB  ", "  BBB  ", "       ", "       "},
                             {"       ", "  BBB  ", " BBBBB ", " BBBBB ", " BBBBB ", "  BBB  ", "       "},
@@ -112,7 +115,7 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
                     .addElement('A', TecTechCasings.TESLA_BASE.asElement())
                     .addElement('B', TecTechCasings.TESLA_TOROID.asElement())
                     .addElement('C', TecTechCasings.TESLA_SECONDARY.asElement())
-                    .addElement('D', defer(machine -> machine.getCoilWindingMeta(), (machine, trigger) -> Math.max(0, Math.min(trigger.stackSize - 1, 6)), TecTechCasings.TESLA_PRIMARY_REDSTONE.asElement(), TecTechCasings.TESLA_PRIMARY_MV.asElement(), TecTechCasings.TESLA_PRIMARY_HV.asElement(), TecTechCasings.TESLA_PRIMARY_EV.asElement(), TecTechCasings.TESLA_PRIMARY_IV.asElement(), TecTechCasings.TESLA_PRIMARY_LUV.asElement(), TecTechCasings.TESLA_PRIMARY_ZPM.asElement()))
+                    .addElement('D', defer(machine -> machine.getCoilWindingMeta(), (machine, trigger) -> Math.max(0, Math.min(GTStructureChannels.getValue(trigger, GTStructureChannels.COIL) - 1, 6)), TecTechCasings.TESLA_PRIMARY_REDSTONE.asElement(), TecTechCasings.TESLA_PRIMARY_MV.asElement(), TecTechCasings.TESLA_PRIMARY_HV.asElement(), TecTechCasings.TESLA_PRIMARY_EV.asElement(), TecTechCasings.TESLA_PRIMARY_IV.asElement(), TecTechCasings.TESLA_PRIMARY_LUV.asElement(), TecTechCasings.TESLA_PRIMARY_ZPM.asElement()))
                     .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_TM_teslaCoil.class).allow(TecTechHatchElement.Capacitor).buildAndChain(StructureRequirements.builder(TecTechCasings.TESLA_BASE, 0).build()), HintColor.GREEN))
                     .addElement('F', withHint(ofFrame(Materials.Titanium), HintColor.CYAN))
                     .build();
@@ -471,9 +474,9 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.hint.0"), HintColor.GREEN);
-        tooltip.addMasterChannel(translateToLocal("tt.structure.tesla_winding"));
+        tooltip.addSubChannel(GTStructureChannels.COIL, translateToLocal("tt.structure.tesla_winding"));
         tooltip.addStructureHint(translateToLocal("tt.structure.titanium_frames"), HintColor.CYAN);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

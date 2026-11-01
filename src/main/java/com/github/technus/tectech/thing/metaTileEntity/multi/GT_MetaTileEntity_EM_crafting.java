@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -36,6 +37,7 @@ public class GT_MetaTileEntity_EM_crafting extends GT_MetaTileEntity_MultiblockB
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_crafting> STRUCTURE_DEFINITION = StructureDefinition
             .<GT_MetaTileEntity_EM_crafting>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
             .addShape("main", transpose(new String[][]{
                     {" AAA ", "AAAAA", "A   A", "BBBBB", "BGCGB", "BGGGB", "BGCGB", "BBBBB", "A   A", "AAAAA", " AAA "},
                     {"AHHHA", "AAAAA", " FFF ", "BBBBB", "GGGGG", "GGGGG", "GGGGG", "BBBBB", " FFF ", "AAAAA", "AHHHA"},
@@ -106,7 +108,7 @@ public class GT_MetaTileEntity_EM_crafting extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.crafter.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

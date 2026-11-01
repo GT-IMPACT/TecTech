@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_Container_MultiMachineEM;
@@ -38,6 +39,7 @@ public class GT_MetaTileEntity_EM_transformer extends GT_MetaTileEntity_Multiblo
     private static final StructureRequirements STRUCTURE_REQUIREMENTS = StructureRequirements.builder(TecTechCasings.HIGH_POWER, 5).build();
     private static final IStructureDefinition<GT_MetaTileEntity_EM_transformer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_transformer>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", new String[][]{
                             {"111", "1~1", "111",},
                             {"111", "101", "111",},
@@ -115,7 +117,7 @@ public class GT_MetaTileEntity_EM_transformer extends GT_MetaTileEntity_Multiblo
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.transformer.hint"), HintColor.YELLOW);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

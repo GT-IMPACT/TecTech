@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi.em_machine;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.mechanics.elementalMatter.core.cElementalInstanceStackMap;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
@@ -52,6 +53,7 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_machine> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_machine>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", new String[][] {
                             {"  0  ", " CCC ", "0C-C0", " CCC ", "  0  "},
                             {" 000 ", "00000", "00~00", "00000", " 000 "},
@@ -219,7 +221,7 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.compatibility.thaumcraft.elementalMatter.definitions.dComplexAspectDefinition;
 import com.github.technus.tectech.compatibility.thaumcraft.elementalMatter.definitions.ePrimalAspectDefinition;
@@ -94,16 +95,18 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
     //use multi A energy inputs, use less power the longer it runs
     private static final IStructureDefinition<GT_MetaTileEntity_EM_collider> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_collider>builder()
+                    .addChannel(GTStructureChannels.TIER, 1, 2)
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"         A A A         ", "        AAAAAAA        ", "      BBBBIIIBBBB      ", "     BAAAAAAAAAAAB     ", "    BAAAA     AAAAB    ", "   BAAA         AAAB   ", "  BAAA           AAAB  ", "  BAA             AAB  ", " ABAA             AABA ", "AABA               ABAA", " AIA               AIA ", "AAIA               AIAA", " AIA               AIA ", "AABA               ABAA", " ABAA             AABA ", "  BAA             AAB  ", "  BAAA           AAAB  ", "   BAAA         AAAB   ", "    BAAAABJJJBAAAAB    ", "     BAHHBBBBBHHAB     ", "      BBBBGFGBBBB      "},
                             {"         AAAAA         ", "       AADDDDDAA       ", "      CDDEEEEEDDC      ", "     CDEEDDDDDEEDC     ", "    CDEDD     DDEDC    ", "   CDED         DEDC   ", "  CDED           DEDC  ", " ADED             DEDA ", " ADED             DEDA ", "ADED               DEDA", "ADED               DEDA", "ADED               DEDA", "ADED               DEDA", "ADED               DEDA", " ADED             DEDA ", " ADED             DEDA ", "  CDED           DEDC  ", "   CDED         DEDC   ", "    CDEDDBJ~JBDDEDC    ", "     CDEEDDDDDEEDC     ", "      CDDEEEEEDDC      "},
                             {"         A A A         ", "        AAAAAAA        ", "      BBBBIIIBBBB      ", "     BAAAAAAAAAAAB     ", "    BAAAA     AAAAB    ", "   BAAA         AAAB   ", "  BAAA           AAAB  ", "  BAA             AAB  ", " ABAA             AABA ", "AABA               ABAA", " AIA               AIA ", "AAIA               AIAA", " AIA               AIA ", "AABA               ABAA", " ABAA             AABA ", "  BAA             AAB  ", "  BAAA           AAAB  ", "   BAAA         AAAB   ", "    BAAAABJJJBAAAAB    ", "     BAHHBBBBBHHAB     ", "      BBBBGFGBBBB      "}
                     }))
                     .addElement('A', TecTechCasings.MOLECULAR.asElement())
-                    .addElement('B', defer(t -> (int) t.eTier, (t, item) -> 2 - (item.stackSize & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.ADVANCED_MOLECULAR.asElement()))
-                    .addElement('C', defer(t -> (int) t.eTier, (t, item) -> 2 - (item.stackSize & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.CONTAINMENT_FIELD.asElement()))
+                    .addElement('B', defer(t -> (int) t.eTier, (t, item) -> 2 - (GTStructureChannels.getValue(item, GTStructureChannels.TIER) & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.ADVANCED_MOLECULAR.asElement()))
+                    .addElement('C', defer(t -> (int) t.eTier, (t, item) -> 2 - (GTStructureChannels.getValue(item, GTStructureChannels.TIER) & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.CONTAINMENT_FIELD.asElement()))
                     .addElement('D', TecTechCasings.MOLECULAR_COIL.asElement())
-                    .addElement('E', defer(t -> (int) t.eTier, (t, item) -> 2 - (item.stackSize & 1), error(), TecTechCasings.HOLLOW.asElement(), TecTechCasings.SPACETIME.asElement()))
+                    .addElement('E', defer(t -> (int) t.eTier, (t, item) -> 2 - (GTStructureChannels.getValue(item, GTStructureChannels.TIER) & 1), error(), TecTechCasings.HOLLOW.asElement(), TecTechCasings.SPACETIME.asElement()))
                     .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
                     .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
@@ -569,7 +572,7 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.collider.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.collider.desc.1"));
         tooltip.beginStructureBlock(23, 3, 21, false);
-        tooltip.addStructureInfo(translateToLocal("tt.structure.collider.tiers"));
+        tooltip.addSubChannel(GTStructureChannels.TIER, translateToLocal("tt.structure.collider.tiers"));
         tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 245, 259, false);
         tooltip.addCasingInfoExactly(TecTechCasings.MOLECULAR_COIL, 91, false);
         tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 8, false);
@@ -592,7 +595,7 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.2"), HintColor.ORANGE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.3"), HintColor.LIME);
         tooltip.addStructureHint("gt.blockmachines.multimachine.em.collider.hint.4");
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

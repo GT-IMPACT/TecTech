@@ -40,7 +40,7 @@ dependencies {
             module = "journeymap-32274",
         )
     }
-    api("space.impact:gregtech-impact:5.09.36.1:dev") {
+    api("space.impact:gregtech-impact:5.09.36.3:dev") {
         isTransitive = false
     }
     compileOnly("space.impact:OpenComputers:1.7.5.7-impact")

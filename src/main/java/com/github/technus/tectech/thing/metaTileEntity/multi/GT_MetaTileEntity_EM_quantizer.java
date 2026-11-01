@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.Reference;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.mechanics.elementalMatter.core.cElementalInstanceStackMap;
@@ -56,6 +57,7 @@ public class GT_MetaTileEntity_EM_quantizer extends GT_MetaTileEntity_Multiblock
     //use multi A energy inputs, use less power the longer it runs
     private static final IStructureDefinition<GT_MetaTileEntity_EM_quantizer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_quantizer>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"CCC", "BAB", "EEE", "DBD"},
                             {"C~C", "ABA", "EBE", "BFB"},
@@ -198,7 +200,7 @@ public class GT_MetaTileEntity_EM_quantizer extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.1"), HintColor.ORANGE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.mattertoem.hint.2"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

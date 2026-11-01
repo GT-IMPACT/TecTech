@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.mechanics.dataTransport.QuantumDataPacket;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
@@ -56,6 +57,8 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_computer> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_computer>builder()
+                    .addChannel(GTStructureChannels.LENGTH, 1, 12)
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("front", transpose(new String[][]{
                             {" AA"},
                             {" AA"},
@@ -300,7 +303,7 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         tooltip.addInfo(Util.intBitsToString(TecTech.RANDOM.nextInt()));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.computer.desc"));
         tooltip.beginVariableStructureBlock(2, 2, 4, 4, 5, 16, false);
-        tooltip.addStructureInfo(translateToLocal("tt.structure.computer.layers"));
+        tooltip.addSubChannel(GTStructureChannels.LENGTH, translateToLocal("tt.structure.computer.layers"));
         tooltip.addCasingInfoRange(TecTechCasings.COMPUTER, 6, 42, false);
         tooltip.addCasingInfoRange(TecTechCasings.ADVANCED_COMPUTER, 10, 56, false);
         tooltip.addCasingInfoRange(TecTechCasings.COMPUTER_HEAT_VENT, 6, 28, false);
@@ -318,7 +321,7 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.1"), HintColor.PURPLE);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override
@@ -407,7 +410,7 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         buildPiece("cap", stackSize, hintsOnly, 1, 2, -1);
 
         byte offset = -2;
-        for (int rackSlices = Math.max(1, Math.min(stackSize.stackSize, 12)); rackSlices > 0; rackSlices--) {
+        for (int rackSlices = Math.max(1, Math.min(GTStructureChannels.getValue(stackSize, GTStructureChannels.LENGTH), 12)); rackSlices > 0; rackSlices--) {
             buildPiece("slice", stackSize, hintsOnly, 1, 2, offset--);
         }
 
@@ -420,7 +423,7 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         if (mMachine) {
             return -1;
         }
-        int slices = Math.max(1, Math.min(stackSize.stackSize, 12));
+        int slices = Math.max(1, Math.min(GTStructureChannels.getValue(stackSize, GTStructureChannels.LENGTH), 12));
         int built = 0;
         for (int depth = 0; depth < slices + 4 && built < budget; depth++) {
             String piece = depth == 0 ? "front" : depth == slices + 3 ? "back" : depth == 1 || depth == slices + 2 ? "cap" : "slice";

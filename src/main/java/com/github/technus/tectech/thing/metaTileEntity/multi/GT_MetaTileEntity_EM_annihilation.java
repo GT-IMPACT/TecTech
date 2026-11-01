@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
@@ -35,6 +36,7 @@ public class GT_MetaTileEntity_EM_annihilation extends GT_MetaTileEntity_Multibl
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_annihilation> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_annihilation>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"           ", "   AB BA   ", "   AB BA   ", "    BBB    ", " A   A   A ", "AA   F   AA", " A   A   A ", "    BBB    ", "   AB BA   ", "   AB BA   ", "           "},
                             {"           ", "   AB BA   ", " EECEEECEE ", " EGGEEEGGE ", "ACGGGEGGGCA", "AEGGGDGGGEA", "ACGGGEGGGCA", " EGGEEEGGE ", " EECEEECEE ", "   AB BA   ", "           "},
@@ -103,7 +105,7 @@ public class GT_MetaTileEntity_EM_annihilation extends GT_MetaTileEntity_Multibl
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.annihilation.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.annihilation.hint.1"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override

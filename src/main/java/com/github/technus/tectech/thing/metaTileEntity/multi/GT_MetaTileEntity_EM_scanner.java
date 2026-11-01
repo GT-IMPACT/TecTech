@@ -1,5 +1,6 @@
 package com.github.technus.tectech.thing.metaTileEntity.multi;
 
+import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.TecTech;
 import com.github.technus.tectech.mechanics.elementalMatter.core.cElementalInstanceStackMap;
 import com.github.technus.tectech.mechanics.elementalMatter.core.stacks.cElementalDefinitionStack;
@@ -70,6 +71,7 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
     //region structure
     private static final IStructureDefinition<GT_MetaTileEntity_EM_scanner> STRUCTURE_DEFINITION =
             StructureDefinition.<GT_MetaTileEntity_EM_scanner>builder()
+                    .addChannel(GTStructureChannels.HATCH, 1, 1)
                     .addShape("main", transpose(new String[][]{
                             {"CCCCC", "BBBBB", "BBDBB", "BDDDB", "BDDDB", "BDDDB", "BBDBB", "EEEEE"},
                             {"CAAAC", "BBBBB", "BDDDB", "D---D", "D---D", "D---D", "BDDDB", "EBBBE"},
@@ -337,7 +339,7 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.1"), HintColor.BLUE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.2"), HintColor.ORANGE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.3"), HintColor.LIME);
-        return tooltip;
+        return tooltip.addStructureChannels(getStructureDefinition());
     }
 
     @Override
