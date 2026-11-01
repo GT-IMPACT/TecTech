@@ -4,6 +4,7 @@ import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -52,9 +53,9 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
                     .addElement('B', TecTechCasings.TELEPORTATION.asElement())
                     .addElement('C', TecTechCasings.DIMENSIONAL_BRIDGE.asElement())
                     .addElement('D', TecTechCasings.ULTIMATE_MOLECULAR.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('F', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_wormhole.class).allow(TecTechHatchElement.Elemental).autoPlace(TecTechHatchElement.ElementalInput, TecTechHatchElement.ElementalOutput, TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     //endregion
     //region variables
@@ -82,7 +83,7 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.wormhole.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.wormhole.desc.1"));
@@ -102,7 +103,7 @@ public class GT_MetaTileEntity_EM_wormhole extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.wormhole.hint.1"), HintColor.LIME);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Also places one Maintenance Hatch.");
     }
 
     @Override

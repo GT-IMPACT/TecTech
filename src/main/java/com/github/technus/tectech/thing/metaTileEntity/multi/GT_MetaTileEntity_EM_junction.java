@@ -8,6 +8,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.util.CommonValues;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -60,8 +61,8 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
                     })
                     .addElement('A', TecTechCasings.MOLECULAR.asElement())
                     .addElement('B', TecTechCasings.ADVANCED_MOLECULAR.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_junction.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_junction.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_junction.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_junction.class).allow(TecTechHatchElement.Elemental).autoPlace(TecTechHatchElement.ElementalInput, TecTechHatchElement.ElementalOutput, TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     //endregion
 
@@ -108,6 +109,8 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
         return new GT_MetaTileEntity_EM_junction(mName);
     }
 
+    private int constructionVariant;
+
     @Override
     public boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         int meta = iGregTechTileEntity.getMetaIDAtSide(GT_Utility.getOppositeSide(iGregTechTileEntity.getFrontFacing()));
@@ -115,6 +118,11 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
             return checkPiece("main", 1, 1, 0);
         } else if (meta == 5) {
             return checkPiece("mainBig", 2, 2, 0);
+        }
+        if (constructionVariant != 0) {
+            // Discover existing ports before the size-identifying center is installed.
+            boolean small = constructionVariant == 1;
+            checkPiece(small ? "main" : "mainBig", small ? 1 : 2, small ? 1 : 2, 0);
         }
         return false;
     }
@@ -163,11 +171,11 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.junction.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.junction.desc.1"));
-        tooltip.addSubChannel(GTStructureChannels.VARIANT, translateToLocal("tt.structure.junction.sizes"));
+        tooltip.addSubChannel(GTStructureChannels.VARIANT, "Value 1: small junction; value 2: large junction. If unset, an odd projector stack size selects the small junction; an even stack size selects the large one.");
         tooltip.addStructureInfo(translateToLocal("tt.structure.junction.small"));
         tooltip.beginStructureBlock(3, 3, 4, false);
         tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 10, 27, false);
@@ -185,7 +193,7 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.junction.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.junction.hint.1"), HintColor.LIME);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Set the routes in the controller. Also places one Maintenance Hatch.");
     }
 
     @Override
@@ -209,7 +217,14 @@ public class GT_MetaTileEntity_EM_junction extends GT_MetaTileEntity_MultiblockB
     }
     @Override
     public int survivalConstruct(ItemStack stackSize, int budget, ISurvivalBuildEnvironment environment) {
-        return survivalBuildPiece((GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1 ? "main" : "mainBig", stackSize, (GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1 ? 1 : 2, (GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1 ? 1 : 2, 0, budget, environment);
+        boolean small = (GTStructureChannels.getValue(stackSize, GTStructureChannels.VARIANT) & 1) == 1;
+        constructionVariant = small ? 1 : 2;
+        try {
+            return survivalBuildPiece(small ? "main" : "mainBig", stackSize, small ? 1 : 2, small ? 1 : 2,
+                    0, budget, environment);
+        } finally {
+            constructionVariant = 0;
+        }
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -116,8 +117,8 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
                     .addElement('B', TecTechCasings.TESLA_TOROID.asElement())
                     .addElement('C', TecTechCasings.TESLA_SECONDARY.asElement())
                     .addElement('D', defer(machine -> machine.getCoilWindingMeta(), (machine, trigger) -> Math.max(0, Math.min(GTStructureChannels.getValue(trigger, GTStructureChannels.COIL) - 1, 6)), TecTechCasings.TESLA_PRIMARY_REDSTONE.asElement(), TecTechCasings.TESLA_PRIMARY_MV.asElement(), TecTechCasings.TESLA_PRIMARY_HV.asElement(), TecTechCasings.TESLA_PRIMARY_EV.asElement(), TecTechCasings.TESLA_PRIMARY_IV.asElement(), TecTechCasings.TESLA_PRIMARY_LUV.asElement(), TecTechCasings.TESLA_PRIMARY_ZPM.asElement()))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_TM_teslaCoil.class).allow(TecTechHatchElement.Capacitor).buildAndChain(StructureRequirements.builder(TecTechCasings.TESLA_BASE, 0).build()), HintColor.GREEN))
-                    .addElement('F', withHint(ofFrame(Materials.Titanium), HintColor.CYAN))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_TM_teslaCoil.class).allow(TecTechHatchElement.Capacitor).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.Capacitor, TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.TESLA_BASE, 0).build()), HintColor.GREEN))
+                    .addElement('F', ofFrame(Materials.Titanium))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_TM_teslaCoil> HYSTERESIS_LOW_SETTING_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.cfgi.0");//Hysteresis low setting
     private static final INameFunction<GT_MetaTileEntity_TM_teslaCoil> HYSTERESIS_HIGH_SETTING_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.cfgi.1");//Hysteresis high setting
@@ -457,7 +458,7 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.BASS_MARK);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.desc.1"));
@@ -474,9 +475,8 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.teslaCoil.hint.0"), HintColor.GREEN);
-        tooltip.addSubChannel(GTStructureChannels.COIL, translateToLocal("tt.structure.tesla_winding"));
-        tooltip.addStructureHint(translateToLocal("tt.structure.titanium_frames"), HintColor.CYAN);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        tooltip.addSubChannel(GTStructureChannels.COIL, "Selects all 20 Tesla primary winding blocks: 1 = redstone; 2 = MV; 3 = HV; 4 = EV; 5 = IV; 6 = LuV; 7 = ZPM.");
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one Capacitor Hatch and one energy input at green base positions. Fill the capacitor hatch with capacitors suited to the selected coil tier. Also places one Maintenance Hatch.");
     }
 
     @Override
@@ -828,6 +828,10 @@ public class GT_MetaTileEntity_TM_teslaCoil extends GT_MetaTileEntity_Multiblock
         }
         return false;
     }
+    public int getCapacitorHatchCount() {
+        return eCapacitorHatches.size();
+    }
+
     public int getCapacitorCount() {
         return eCapacitorHatches.size() + mMaintenanceHatches.size() + mEnergyHatches.size() + eEnergyMulti.size() + mDynamoHatches.size() + eDynamoMulti.size() + eParamHatches.size() + mInputHatches.size() + mOutputHatches.size();
     }

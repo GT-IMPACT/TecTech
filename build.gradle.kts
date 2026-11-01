@@ -33,7 +33,7 @@ dependencies {
         isTransitive = false
     }
 
-    api("space.impact:ImpactStructures:1.1.0:dev")
+    api("space.impact:ImpactStructures:1.1.3:dev")
     api("space.impact:Impact-Core:1.1.1.0:dev") {
         exclude(
             group = "curse.maven",
@@ -64,6 +64,7 @@ dependencies {
     api("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
 
     compileOnly(modUtils.deobfuscate("curse.maven:thaumcraft-223628:2227552"))
+    testImplementation(modUtils.deobfuscate("curse.maven:thaumcraft-223628:2227552"))
     compileOnly(fileTree("libs") {
         include("*.jar")
     })

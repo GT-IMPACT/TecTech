@@ -8,6 +8,7 @@ import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_Container_MultiMachineEM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_GUIContainer_MultiMachineEM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.util.CommonValues;
 import cpw.mods.fml.relauncher.Side;
@@ -54,7 +55,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
                     }))
                     .addElement('A', TecTechCasings.MOLECULAR.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR_COIL.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_infuser.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_infuser.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
 
     public GT_MetaTileEntity_EM_infuser(int aID, String aName, String aNameRegional) {
@@ -161,7 +162,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_GENERAL);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.infuser.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.infuser.desc.1"));
@@ -177,7 +178,7 @@ public class GT_MetaTileEntity_EM_infuser extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureInfo(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.infuser.hint"), HintColor.GREEN);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one energy input hatch at a green position. Put the item to charge in the controller. Also places one Maintenance Hatch.");
     }
 
     @Override

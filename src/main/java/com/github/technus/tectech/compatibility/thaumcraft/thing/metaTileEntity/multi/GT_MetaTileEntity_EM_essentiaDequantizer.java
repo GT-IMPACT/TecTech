@@ -7,6 +7,7 @@ import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.GT_MetaTileEntity_EM_quantizer;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.util.CommonValues;
 import cpw.mods.fml.relauncher.Side;
@@ -52,9 +53,9 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
                     .addElement('1', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('2', TecTechCasings.MOLECULAR.asElement())
                     .addElement('3', TecTechCasings.HOLLOW.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalInput).autoPlace(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_essentiaDequantizer.class).allow(TecTechHatchElement.ElementalOverflow).autoPlace(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('F', new EssentiaContainerElement<>())
                     .build();
     //endregion
@@ -106,7 +107,7 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.desc.1"));
@@ -125,8 +126,8 @@ public class GT_MetaTileEntity_EM_essentiaDequantizer extends GT_MetaTileEntity_
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.1"), HintColor.BLUE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.2"), HintColor.LIME);
         tooltip.addStructureInfo(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.3"));
-        tooltip.addStructureHint("gt.blockmachines.multimachine.em.emtoessentia.hint.3");
-        return tooltip.addStructureChannels(getStructureDefinition());
+        tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.emtoessentia.hint.3"), HintColor.LIGHT_BLUE);
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one energy input, one elemental input and one overflow hatch at their colored positions. Places an empty essentia jar at the light blue position. Also places one Maintenance Hatch.");
     }
 
     @Override

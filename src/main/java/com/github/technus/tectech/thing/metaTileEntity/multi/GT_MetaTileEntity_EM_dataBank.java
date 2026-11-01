@@ -9,6 +9,7 @@ import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_H
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_Container_MultiMachineEM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_GUIContainer_MultiMachineEM;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -52,8 +53,8 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
                     }))
                     .addElement('A', TecTechCasings.COMPUTER.asElement())
                     .addElement('B', TecTechCasings.COMPUTER_HEAT_VENT.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.DataBank).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.PURPLE))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_dataBank.class).allow(TecTechHatchElement.DataBank).autoPlace(TecTechAutoHatch.DataAccess, TecTechAutoHatch.RecipeDataOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.COMPUTER, 0).build()), HintColor.PURPLE))
                     .build();
     //region variables
     private final ArrayList<GT_MetaTileEntity_Hatch_OutputDataItems> eStacksDataOutputs = new ArrayList<>();
@@ -118,7 +119,7 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.databank.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.databank.desc.1"));
@@ -133,7 +134,7 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.databank.hint.1"), HintColor.PURPLE);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one energy input at a green position, one Data Access Hatch and one Assembly Line Data Output Hatch at purple positions. Also places one Maintenance Hatch.");
     }
 
     @Override
@@ -190,6 +191,10 @@ public class GT_MetaTileEntity_EM_dataBank extends GT_MetaTileEntity_MultiblockB
     @Override
     public IStructureDefinition<GT_MetaTileEntity_EM_dataBank> getStructureDefinition() {
         return STRUCTURE_DEFINITION;
+    }
+
+    public int getDataAccessCount() {
+        return eDataAccessHatches.size();
     }
 
     public int getDataBankCount() {

@@ -181,9 +181,14 @@ public class TecTechStructureMigrationTest {
                 assertTrue(machine.getSecondaryDescription().length > 0);
                 for (IChannelDefinition channel : machine.getStructureDefinition().getChannelDefinitions()) {
                     assertTrue(name + " missing " + channel.getChannel(),
-                            String.join("\n", machine.getSecondaryDescription()).contains(channel.getChannel() + ":"));
+                            String.join("\n", machine.getSecondaryDescription()).contains("(" + channel.getChannel() + ")"));
                     assertTrue(name + " missing channel hint",
-                            String.join("\n", machine.getStructureDescription(null)).contains(channel.getChannel() + ":"));
+                            String.join("\n", machine.getStructureDescription(null)).contains("(" + channel.getChannel() + ")"));
+                    String description = plain(machine.getSecondaryDescription());
+                    String header = net.minecraft.util.StatCollector.translateToLocal("gt.tooltip.channels");
+                    assertTrue(name + " channel outside section", description.indexOf("(" + channel.getChannel() + ")") > description.indexOf(header));
+                    assertFalse(name + " generic channel description", description.contains(GTStructureChannels.getDescription(channel.getChannel())));
+                    assertFalse(name + " channels in primary tooltip", plain(machine.getDescription()).contains(header));
                 }
                 assertTrue(machine.getStructureDescription(null).length > 0);
                 GT_MetaTileEntity_TooltipMultiBlockBase.invalidateTooltipCache();
@@ -222,6 +227,17 @@ public class TecTechStructureMigrationTest {
                     String primary = plain(machine.getDescription());
                     String structure = plain(machine.getSecondaryDescription());
                     String hints = plain(machine.getStructureDescription(null));
+                    String channelHeader = language.get("gt.tooltip.channels");
+                    int channelStart = structure.indexOf(channelHeader);
+                    assertTrue(fields[0] + " missing channel section", channelStart > 0);
+                    assertTrue(hints.contains(channelHeader));
+                    assertFalse(primary.contains(channelHeader));
+                    for (IChannelDefinition channel : machine.getStructureDefinition().getChannelDefinitions()) {
+                        String label = GTStructureChannels.getLabel(channel.getChannel());
+                        assertTrue(fields[0], structure.indexOf(label + " (" + channel.getChannel() + ")") > channelStart);
+                        assertTrue(fields[0], String.join("\n", machine.getSecondaryDescription())
+                                .contains(EnumChatFormatting.AQUA + label + EnumChatFormatting.DARK_GRAY));
+                    }
                     for (String key : fields[1].split(";")) {
                         if (!key.isEmpty()) {
                             assertTrue(fields[0] + " lost description " + key, primary.contains(language.get(key)));
@@ -251,7 +267,7 @@ public class TecTechStructureMigrationTest {
                         assertTrue(fields[0], structure.contains(language.get("tt.structure.casing_ranges")));
                     }
                     if (fields[0].endsWith("EM_computer")) {
-                        assertTrue(structure.contains(language.get("tt.structure.computer.layers")));
+                        assertTrue(structure.contains(language.get("TileEntity_DESCRIPTION_multimachine.em.computer_Channel_Index_0")));
                         assertTrue(structure.contains("1 " + language.get("tt.structure.hatch.Uncertainty")));
                         assertTrue(structure.contains(language.get("tt.structure.computer.uncertainty")));
                     }
@@ -275,13 +291,15 @@ public class TecTechStructureMigrationTest {
 
     private Map<String, String> language(String locale) throws Exception {
         Map<String, String> result = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("/assets/tectech/lang/" + locale + ".lang"), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                int separator = line.indexOf('=');
-                if (!line.startsWith("#") && separator > 0) {
-                    result.put(line.substring(0, separator), line.substring(separator + 1));
+        for (String mod : new String[] { "gregtech", "tectech" }) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    getClass().getResourceAsStream("/assets/" + mod + "/lang/" + locale + ".lang"), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    int separator = line.indexOf('=');
+                    if (!line.startsWith("#") && separator > 0) {
+                        result.put(line.substring(0, separator), line.substring(separator + 1));
+                    }
                 }
             }
         }
@@ -344,6 +362,13 @@ public class TecTechStructureMigrationTest {
                     assertFalse(name, hints.frames.isEmpty());
                     assertFalse("White frames hide on TecTech casings: " + name,
                             hints.frames.containsValue(HintColor.WHITE));
+                    if (machine instanceof GT_MetaTileEntity_TM_teslaCoil) {
+                        assertEquals("All titanium frames retain their material hologram", 16, hints.tintedPositions.size());
+                        for (String position : hints.tintedPositions) {
+                            assertFalse("Fixed titanium frames are not hatch positions: " + position,
+                                    hints.frames.containsKey(position));
+                        }
+                    }
                     Set<String> first = new HashSet<>(hints.positions);
                     Map<String, Block> firstBlocks = new HashMap<>(hints.blocks);
                     Map<String, Integer> firstMetadata = new HashMap<>(hints.metadata);
@@ -511,7 +536,13 @@ public class TecTechStructureMigrationTest {
     }
 
     private static GT_MetaTileEntity_MultiblockBase_EM<?> machine(String name) throws Exception {
-        return (GT_MetaTileEntity_MultiblockBase_EM<?>) Class.forName(name).getConstructor(String.class).newInstance("migration-test");
+        String machineName = "migration-test";
+        if (name.endsWith("GT_MetaTileEntity_EM_computer")) machineName = "multimachine.em.computer";
+        if (name.endsWith("GT_MetaTileEntity_EM_collider")) machineName = "multimachine.em.collider";
+        if (name.endsWith("GT_MetaTileEntity_EM_bhg")) machineName = "multimachine.em.blackholegenerator";
+        if (name.endsWith("GT_MetaTileEntity_EM_junction")) machineName = "multimachine.em.junction";
+        if (name.endsWith("GT_MetaTileEntity_TM_teslaCoil")) machineName = "multimachine.tm.teslaCoil";
+        return (GT_MetaTileEntity_MultiblockBase_EM<?>) Class.forName(name).getConstructor(String.class).newInstance(machineName);
     }
 
     private BufferedReader resource(String name) {

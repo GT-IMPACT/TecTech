@@ -11,6 +11,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.MultiblockControl;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.util.CommonValues;
 import com.github.technus.tectech.util.Util;
@@ -67,8 +68,8 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
                     .addElement('1', ofBlock(QuantumGlassBlock.INSTANCE, 0))
                     .addElement('2', TecTechCasings.ADVANCED_MOLECULAR.asElement())
                     .addElement('3', TecTechCasings.CONTAINMENT_FIELD.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
-                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('D', withHint(buildHatchAdder(GT_MetaTileEntity_EM_machine.class).allow(TecTechHatchElement.Elemental).autoPlace(TecTechHatchElement.ElementalInput, TecTechHatchElement.ElementalOutput, TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .build();
     private static final IStatusFunction<GT_MetaTileEntity_EM_machine> SRC_STATUS =
             (base, p) -> {
@@ -203,7 +204,7 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.processing.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.processing.desc.1"));
@@ -221,7 +222,7 @@ public class GT_MetaTileEntity_EM_machine extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.processing.hint.1"), HintColor.LIME);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one energy input at a green position and one elemental input, output and overflow hatch at lime positions. Add further ports and configure routes for the selected machine behavior. Also places one Maintenance Hatch.");
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.LedStatus;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.util.CommonValues;
 import gregtech.api.enums.ItemList;
@@ -37,10 +38,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import space.impact.structures.hint.HintColor;
 import space.impact.structures.structure.IStructureDefinition;
+import space.impact.structures.structure.IStructureElement;
+import space.impact.structures.structure.AutoPlaceEnvironment;
 import space.impact.structures.structure.ISurvivalBuildEnvironment;
 import space.impact.structures.structure.StructureDefinition;
 
@@ -56,6 +60,7 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import static space.impact.structures.structure.StructureUtility.ofBlock;
+import static space.impact.structures.structure.StructureUtility.isAir;
 import static space.impact.structures.structure.StructureUtility.transpose;
 import static space.impact.structures.structure.StructureUtility.withHint;
 
@@ -75,15 +80,16 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
                     .addShape("main", transpose(new String[][]{
                             {"CCCCC", "BBBBB", "BBDBB", "BDDDB", "BDDDB", "BDDDB", "BBDBB", "EEEEE"},
                             {"CAAAC", "BBBBB", "BDDDB", "D---D", "D---D", "D---D", "BDDDB", "EBBBE"},
-                            {"CA~AC", "BBBBB", "DDDDD", "D---D", "D---D", "D---D", "DDGDD", "EBFBE"},
+                            {"CA~AC", "BBBBB", "DDDDD", "D---D", "D-Q-D", "D---D", "DDGDD", "EBFBE"},
                             {"CAAAC", "BBBBB", "BDDDB", "D---D", "D---D", "D---D", "BDDDB", "EBBBE"},
                             {"CCCCC", "BBBBB", "BBDBB", "BDDDB", "BDDDB", "BDDDB", "BBDBB", "EEEEE"}
                     }))
+                    .addElement('Q', quantumSpace())
                     .addElement('A', TecTechCasings.HIGH_POWER.asElement())
                     .addElement('B', TecTechCasings.MOLECULAR.asElement())
-                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('C', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput, TecTechAutoHatch.DataInput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .addElement('D', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).allow(TecTechHatchElement.ElementalOverflow).autoPlace(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('F', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hint(HintColor.BLUE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalInput).build()))
                     .addElement('G', buildHatchAdder(GT_MetaTileEntity_EM_scanner.class).hatchFacing((machine, tile) -> machine.getExtendedFacing().getDirection()).hint(HintColor.ORANGE).build(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).atLeast(TecTechHatchElement.ElementalOutput).build()))
                     .build();
@@ -124,12 +130,49 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
         eDismantleBoom = true;
     }
 
+    /** The scanner renders its own effect here; all other chamber positions still require air. */
+    private static IStructureElement<GT_MetaTileEntity_EM_scanner> quantumSpace() {
+        return new IStructureElement<GT_MetaTileEntity_EM_scanner>() {
+            @Override
+            public boolean check(GT_MetaTileEntity_EM_scanner machine, World world, int x, int y, int z) {
+                return world.isAirBlock(x, y, z) || world.getBlock(x, y, z) == QuantumStuffBlock.INSTANCE;
+            }
+
+            @Override
+            public boolean couldBeValid(GT_MetaTileEntity_EM_scanner machine, World world,
+                    int x, int y, int z, ItemStack trigger) {
+                return check(machine, world, x, y, z);
+            }
+
+            @Override
+            public boolean spawnHint(GT_MetaTileEntity_EM_scanner machine, World world,
+                    int x, int y, int z, ItemStack trigger) {
+                return world.getBlock(x, y, z) == QuantumStuffBlock.INSTANCE
+                        || isAir().spawnHint(machine, world, x, y, z, trigger);
+            }
+
+            @Override
+            public boolean placeBlock(GT_MetaTileEntity_EM_scanner machine, World world,
+                    int x, int y, int z, ItemStack trigger) {
+                return check(machine, world, x, y, z);
+            }
+
+            @Override
+            public PlaceResult survivalPlaceBlock(GT_MetaTileEntity_EM_scanner machine, World world,
+                    int x, int y, int z, ItemStack trigger, AutoPlaceEnvironment environment) {
+                return check(machine, world, x, y, z) ? PlaceResult.SKIP : PlaceResult.REJECT;
+            }
+        };
+    }
+
     private void quantumStuff(boolean shouldExist) {
         IGregTechTileEntity base = getBaseMetaTileEntity();
         if (base != null && base.getWorld() != null) {
-            int xDir = ForgeDirection.getOrientation(base.getBackFacing()).offsetX * 4 + base.getXCoord();
-            int yDir = ForgeDirection.getOrientation(base.getBackFacing()).offsetY * 4 + base.getYCoord();
-            int zDir = ForgeDirection.getOrientation(base.getBackFacing()).offsetZ * 4 + base.getZCoord();
+            int[] offset = new int[3];
+            getExtendedFacing().getWorldOffset(new int[]{0, 0, 4}, offset);
+            int xDir = base.getXCoord() + offset[0];
+            int yDir = base.getYCoord() + offset[1];
+            int zDir = base.getZCoord() + offset[2];
             Block block = base.getWorld().getBlock(xDir, yDir, zDir);
             if (shouldExist) {
                 if (block != null && block.getMaterial() == Material.air) {
@@ -319,7 +362,7 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.scanner.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.scanner.desc.1"));
@@ -339,7 +382,7 @@ public class GT_MetaTileEntity_EM_scanner extends GT_MetaTileEntity_MultiblockBa
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.1"), HintColor.BLUE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.2"), HintColor.ORANGE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.scanner.hint.3"), HintColor.LIME);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places the elemental input and front-facing elemental output at blue and orange positions, one overflow hatch at a lime position, and energy and computation data inputs at green positions. Also places one Maintenance Hatch.");
     }
 
     @Override

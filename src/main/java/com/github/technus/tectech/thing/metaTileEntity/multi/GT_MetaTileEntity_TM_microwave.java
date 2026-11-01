@@ -9,6 +9,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.LedStatus;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -66,7 +67,7 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
                             {"ABBBA", "BAAAB", "BAAAB", "BAAAB", "ABBBA"}
                     }))
                     .addElement('A', Casings.CLEAN_STAINLESS_STEEL.asElement())
-                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_TM_microwave.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(Casings.CLEAN_STAINLESS_STEEL, 0).build()), HintColor.GREEN))
+                    .addElement('B', withHint(buildHatchAdder(GT_MetaTileEntity_TM_microwave.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput, TecTechAutoHatch.ItemOutput).buildAndChain(StructureRequirements.builder(Casings.CLEAN_STAINLESS_STEEL, 0).build()), HintColor.GREEN))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_TM_microwave> POWER_SETTING_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.tm.microwave.cfgi.0");//Power setting
     //endregion
@@ -192,7 +193,7 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.BASS_MARK);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.tm.microwave.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.tm.microwave.desc.1"));
@@ -207,7 +208,7 @@ public class GT_MetaTileEntity_TM_microwave extends GT_MetaTileEntity_Multiblock
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.tm.microwave.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint("gt.blockmachines.multimachine.tm.microwave.hint.1");
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one energy input and one item output bus at green positions. Put items to cook inside the chamber. Also places one Maintenance Hatch.");
     }
 
     @Override

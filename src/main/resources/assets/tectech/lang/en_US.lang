@@ -544,7 +544,7 @@ gt.blockcasingsBA0.8.desc.1=Who wouldn't want a 32k epoxy multi?
 
 #Multiblocks
 gt.blockmachines.multimachine.em.transformer.name=Active Transformer
-gt.blockmachines.multimachine.em.transformer.hint=Energy IO Hatches or High Power Casing
+gt.blockmachines.multimachine.em.transformer.hint=Energy Input or Dynamo Hatches or High Power Casing
 gt.blockmachines.multimachine.em.transformer.desc.0=Power substation
 gt.blockmachines.multimachine.em.transformer.desc.1=All the transformation!
 gt.blockmachines.multimachine.em.transformer.desc.2=Only 0.004% power loss, HAYO!
@@ -767,7 +767,7 @@ gt.blockmachines.machine.tt.tesla.02.name=Advanced Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.03.name=Epyc Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.04.name=Ultimate Power Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.05.name=Insane Tesla Transceiver
-gt.blockmachines.machine.tt.tesla.desc.0=Your Tesla I/O machine of choice
+gt.blockmachines.machine.tt.tesla.desc.0=Receives and transmits energy through the Tesla network
 gt.blockmachines.machine.tt.tesla.desc.1=Lightning stoves for the rich
 
 #Debug blocks
@@ -865,10 +865,10 @@ tt.keyphrase.Sending_power=Sending power
 tt.keyphrase.Receiving_power=Receiving power
 tt.keyphrase.Stored_energy=Stored energy
 tt.keyphrase.Stored_EU=Stored EU
-tt.keyphrase.Average_IO=Average I/O
-tt.keyphrase.Average_IO_(max)=Voltage I/O (max)
-tt.keyphrase.Average_IO_max=Voltage I/O max
-tt.keyphrase.Amperage_IO_(max)=Amperage I/O (max)
+tt.keyphrase.Average_IO=Average energy input and output
+tt.keyphrase.Average_IO_(max)=Maximum input and output voltage
+tt.keyphrase.Average_IO_max=Maximum input and output voltage
+tt.keyphrase.Amperage_IO_(max)=Maximum input and output amperage
 tt.keyphrase.Side_capabilities=Side capabilities
 
 #OpenTurrets compatibility
@@ -886,29 +886,29 @@ tt.structure.hatch.Rack=Computer Rack
 tt.structure.hatch.Holder=Object Holder
 tt.structure.hatch.DataBank=Data Access or Data Bank Master Hatch
 tt.structure.hatch.Capacitor=Tesla capacitor or utility hatch
-tt.structure.tesla_winding=Tesla primary winding tier (1–7)
+TileEntity_DESCRIPTION_multimachine.tm.teslaCoil_Channel_Index_0=Selects all 20 Tesla primary winding blocks: 1 = redstone; 2 = MV; 3 = HV; 4 = EV; 5 = IV; 6 = LuV; 7 = ZPM.
 
 # Multiblock structure details
 tt.structure.hologram=At the positions shown by the hologram
 tt.structure.required_position=Required at its marked position; cannot be replaced with casing
 tt.structure.casing_ranges=Ranges depend on the selected size/variant and replacement of casings with hatches.
-tt.structure.classic_hatches=Green: item/fluid I/O, energy/dynamo, maintenance and muffler hatches.
+tt.structure.classic_hatches=Green: item and fluid inputs and outputs, energy inputs and dynamos, maintenance and muffler hatches.
 tt.structure.classic_data=Also accepts parameter, optical data hatches and at most one Uncertainty Resolver.
 tt.structure.elemental_hatches=Lime: elemental input, output or overflow hatches.
 tt.structure.essentia_storage=Essentia storage
-tt.structure.computer.layers=Value N = 1-12 rack layers; total length = N + 4. Without this channel, uses the master value.
+TileEntity_DESCRIPTION_multimachine.em.computer_Channel_Index_0=Sets the number of rack layers from 1 to 12. The computer is four blocks longer than its rack section. If unset, the projector stack size selects the layer count.
 tt.structure.computer.casings=For N layers: 2N + 4 fixed Computer Casings, plus up to 14 in the end walls.
 tt.structure.computer.racks=Advanced Casings: 2N + 8 fixed, plus 2N positions for racks or casings.
 tt.structure.computer.clearance=Heat vents: 2N + 4. Keep the two vent-side air positions per layer clear.
 tt.structure.computer.ends=Exactly one in a green position on either end wall
 tt.structure.computer.connections=Supply energy through Energy Hatches; use optical Data Output Hatches to export computation.
 tt.structure.computer.uncertainty=Resolve uncertainty before computation can be delivered.
-tt.structure.collider.tiers=One collider half. Value 1: tier 1; value 2: tier 2. Without this channel: odd master = tier 1, even = tier 2. Shared materials:
+TileEntity_DESCRIPTION_multimachine.em.collider_Channel_Index_0=Selects the collider half materials: 1 = tier 1; 2 = tier 2. If unset, an odd projector stack size selects tier 1; an even stack size selects tier 2.
 tt.structure.collider.tier1=Tier 1: add these blocks to the shared materials:
 tt.structure.collider.tier2=Tier 2: add these blocks instead of the tier 1 additions:
-tt.structure.bhg.dome=Value 1: open structure; value 2: glass dome. Without this channel: odd master = open, even = dome.
+TileEntity_DESCRIPTION_multimachine.em.blackholegenerator_Channel_Index_0=Value 1: open structure; value 2: glass dome. If unset, an odd projector stack size selects the open structure; an even stack size selects the dome.
 tt.structure.bhg.dome_location=Only for the glass-dome variant
-tt.structure.junction.sizes=Value 1: small junction; value 2: large junction. Without this channel: odd master = small, even = large.
+TileEntity_DESCRIPTION_multimachine.em.junction_Channel_Index_0=Value 1: small junction; value 2: large junction. If unset, an odd projector stack size selects the small junction; an even stack size selects the large one.
 tt.structure.junction.small=Small junction materials:
 tt.structure.junction.large=Large junction materials:
 tt.structure.tesla_primary=Tesla Primary Windings
@@ -919,3 +919,42 @@ tt.structure.transformer.io=Replace at most 20 outer casings with energy input/o
 tt.structure.scanner.output=The required Elemental Output Hatch must face the same direction as the controller.
 tt.structure.research.holder=Place the research item in the Object Holder; supply computation through an optical data input.
 tt.structure.computer.components=Install computing components inside the Computer Racks.
+TileEntity_DESCRIPTION_multimachine.em.collider_Structure_Index_0=One collider half. Shared materials:
+
+# Individual automatic construction roles
+tt.structure.auto.PowerInput=Energy Input Hatch
+tt.structure.auto.PowerOutput=Energy Output Hatch
+tt.structure.auto.ItemInput=Item Input Bus
+tt.structure.auto.ItemOutput=Item Output Bus
+tt.structure.auto.FluidInput=Fluid Input Hatch
+tt.structure.auto.FluidOutput=Fluid Output Hatch
+tt.structure.auto.DataInput=Computation Data Input Hatch
+tt.structure.auto.DataOutput=Computation Data Output Hatch
+tt.structure.auto.DataAccess=Data Access Hatch
+tt.structure.auto.RecipeDataOutput=Assembly Line Data Output Hatch
+tt.structure.auto.Capacitor=Capacitor Hatch
+tt.structure.auto.Maintenance=Maintenance Hatch
+
+# Automatic construction channels
+TileEntity_DESCRIPTION_multimachine.em.annihilation_Channel_Index_0=Places one elemental input, output and overflow hatch at lime positions, plus energy input and output hatches at green positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.blackholegenerator_Channel_Index_1=Places one elemental input, output and overflow hatch at lime positions, plus energy input and output hatches at green positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.crafter_Channel_Index_0=Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.stabilizer_Channel_Index_0=Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.wormhole_Channel_Index_0=Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.collider_Channel_Index_1=Places one elemental input, two elemental outputs, one overflow hatch, and energy input and output hatches at their marked positions. Build the matching collider half separately. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.databank_Channel_Index_0=Places one energy input at a green position, one Data Access Hatch and one Assembly Line Data Output Hatch at purple positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.decay_Channel_Index_0=Places one elemental input, two elemental outputs and one overflow hatch at lime positions, plus energy input and output hatches at green positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.infuser_Channel_Index_0=Places one energy input hatch at a green position. Put the item to charge in the controller. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.junction_Channel_Index_1=Places one elemental input, output and overflow hatch at lime positions and one energy input at a green position. Set the routes in the controller. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.switch_Channel_Index_0=Places one computation data input, one computation data output and one energy input at green positions. Set the data routes in the controller. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.transformer_Channel_Index_0=Places one energy input and one energy output hatch at yellow positions while retaining the required casings.
+TileEntity_DESCRIPTION_multimachine.tm.microwave_Channel_Index_0=Places one energy input and one item output bus at green positions. Put items to cook inside the chamber. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.tm.teslaCoil_Channel_Index_1=Places one Capacitor Hatch and one energy input at green base positions. Fill the capacitor hatch with capacitors suited to the selected coil tier. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.processing_Channel_Index_0=Places one energy input at a green position and one elemental input, output and overflow hatch at lime positions. Add further ports and configure routes for the selected machine behavior. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.essentiatoem_Channel_Index_0=Places one energy input, one elemental output and one overflow hatch at their colored positions. Places an empty essentia jar at the light blue position. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.emtoessentia_Channel_Index_0=Places one energy input, one elemental input and one overflow hatch at their colored positions. Places an empty essentia jar at the light blue position. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.computer_Channel_Index_1=Places one Uncertainty Resolver, one energy input and one computation data output in the end walls, plus one Computer Rack at a purple position. Add more racks to increase computing power. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.research_Channel_Index_0=Places the Object Holder at its marked position, plus one energy input and one computation data input in the casing. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.scanner_Channel_Index_0=Places the elemental input and front-facing elemental output at blue and orange positions, one overflow hatch at a lime position, and energy and computation data inputs at green positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.mattertoem_Channel_Index_0=Places one elemental output, one overflow hatch, one energy input, one item input bus and one fluid input hatch at their marked positions. Also places one Maintenance Hatch.
+TileEntity_DESCRIPTION_multimachine.em.emtomatter_Channel_Index_0=Places one elemental input, one overflow hatch, one energy input, one item output bus and one fluid output hatch at their marked positions. Also places one Maintenance Hatch.

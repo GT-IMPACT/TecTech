@@ -12,6 +12,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.LedStatus;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -83,11 +84,11 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
                             {" AA"},
                             {" AA"}
                     }))
-                    .addElement('A', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.All).atLeast(TecTechHatchElement.Uncertainty).buildAndChain(TecTechCasings.COMPUTER), HintColor.GREEN))
+                    .addElement('A', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.All).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput, TecTechAutoHatch.DataOutput).atLeast(TecTechHatchElement.Uncertainty).buildAndChain(TecTechCasings.COMPUTER), HintColor.GREEN))
                     .addElement('B', TecTechCasings.COMPUTER.asElement())
                     .addElement('C', TecTechCasings.COMPUTER_HEAT_VENT.asElement())
                     .addElement('D', TecTechCasings.ADVANCED_COMPUTER.asElement())
-                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.Rack).buildAndChain(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).build()), HintColor.PURPLE))
+                    .addElement('E', withHint(buildHatchAdder(GT_MetaTileEntity_EM_computer.class).allow(TecTechHatchElement.Rack).autoPlace(TecTechHatchElement.Rack).buildAndChain(StructureRequirements.builder(TecTechCasings.ADVANCED_COMPUTER, 0).build()), HintColor.PURPLE))
                     .build();
     private static final INameFunction<GT_MetaTileEntity_EM_computer> OC_NAME = (base, p) -> translateToLocal("gt.blockmachines.multimachine.em.computer.cfgi.0");//Overclock ratio
     //endregion
@@ -145,6 +146,8 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         availableData  = hatch_0.makeOutParameter(1, 0, COMPUTE_NAME, COMPUTE_STATUS);
     }
 
+    private int constructionSlices;
+
     @Override
     public boolean checkMachine_EM(IGregTechTileEntity iGregTechTileEntity, ItemStack itemStack) {
         for (GT_MetaTileEntity_Hatch_Rack rack : eRacks) {
@@ -153,6 +156,18 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
             }
         }
         eRacks.clear();
+        if (constructionSlices > 0) {
+            // A partial front must not hide ports already installed in the back or rack layers.
+            boolean complete = checkPiece("front", 1, 2, 0);
+            complete &= checkPiece("cap", 1, 2, -1);
+            for (int layer = 0; layer < constructionSlices; layer++) {
+                complete &= checkPiece("slice", 1, 2, -2 - layer);
+            }
+            complete &= checkPiece("cap", 1, 2, -2 - constructionSlices);
+            complete &= checkPiece("back", 1, 2, -3 - constructionSlices);
+            eCertainMode = (byte) Math.min((constructionSlices + 4) / 3, 5);
+            return complete && eUncertainHatches.size() == 1;
+        }
         if (!checkPiece("front", 1, 2, 0)) {
             return false;
         }
@@ -298,12 +313,12 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(Util.intBitsToString(TecTech.RANDOM.nextInt()));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.computer.desc"));
         tooltip.beginVariableStructureBlock(2, 2, 4, 4, 5, 16, false);
-        tooltip.addSubChannel(GTStructureChannels.LENGTH, translateToLocal("tt.structure.computer.layers"));
+        tooltip.addSubChannel(GTStructureChannels.LENGTH, "Sets the number of rack layers from 1 to 12. The computer is four blocks longer than its rack section. If unset, the projector stack size selects the layer count.");
         tooltip.addCasingInfoRange(TecTechCasings.COMPUTER, 6, 42, false);
         tooltip.addCasingInfoRange(TecTechCasings.ADVANCED_COMPUTER, 10, 56, false);
         tooltip.addCasingInfoRange(TecTechCasings.COMPUTER_HEAT_VENT, 6, 28, false);
@@ -321,7 +336,7 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.computer.hint.1"), HintColor.PURPLE);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one Uncertainty Resolver, one energy input and one computation data output in the end walls, plus one Computer Rack at a purple position. Add more racks to increase computing power. Also places one Maintenance Hatch.");
     }
 
     @Override
@@ -424,18 +439,23 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
             return -1;
         }
         int slices = Math.max(1, Math.min(GTStructureChannels.getValue(stackSize, GTStructureChannels.LENGTH), 12));
-        int built = 0;
-        for (int depth = 0; depth < slices + 4 && built < budget; depth++) {
-            String piece = depth == 0 ? "front" : depth == slices + 3 ? "back" : depth == 1 || depth == slices + 2 ? "cap" : "slice";
-            int result = survivalBuildPiece(piece, stackSize, 1, 2, -depth, budget - built, environment);
-            if (result > 0) {
-                built += result;
+        constructionSlices = slices;
+        try {
+            int built = 0;
+            for (int depth = 0; depth < slices + 4 && built < budget; depth++) {
+                String piece = depth == 0 ? "front" : depth == slices + 3 ? "back" : depth == 1 || depth == slices + 2 ? "cap" : "slice";
+                int result = survivalBuildPiece(piece, stackSize, 1, 2, -depth, budget - built, environment);
+                if (result > 0) {
+                    built += result;
+                }
+                if (mMachine) {
+                    return built == 0 ? -1 : built;
+                }
             }
-            if (mMachine) {
-                return built == 0 ? -1 : built;
-            }
+            return built;
+        } finally {
+            constructionSlices = 0;
         }
-        return built;
     }
 
     @Override

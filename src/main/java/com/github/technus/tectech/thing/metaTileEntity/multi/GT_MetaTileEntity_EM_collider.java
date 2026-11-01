@@ -20,6 +20,7 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEnt
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.INameFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.IStatusFunction;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.Parameters;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -107,11 +108,11 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
                     .addElement('C', defer(t -> (int) t.eTier, (t, item) -> 2 - (GTStructureChannels.getValue(item, GTStructureChannels.TIER) & 1), error(), TecTechCasings.MOLECULAR.asElement(), TecTechCasings.CONTAINMENT_FIELD.asElement()))
                     .addElement('D', TecTechCasings.MOLECULAR_COIL.asElement())
                     .addElement('E', defer(t -> (int) t.eTier, (t, item) -> 2 - (GTStructureChannels.getValue(item, GTStructureChannels.TIER) & 1), error(), TecTechCasings.HOLLOW.asElement(), TecTechCasings.SPACETIME.asElement()))
-                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
-                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
-                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
+                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOutput).autoPlace(2, TecTechHatchElement.ElementalOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.ORANGE))
+                    .addElement('G', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalOverflow).autoPlace(TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.ElementalInput).autoPlace(TecTechHatchElement.ElementalInput).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.BLUE))
                     .addElement('I', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('J', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('J', withHint(buildHatchAdder(GT_MetaTileEntity_EM_collider.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput, TecTechAutoHatch.PowerOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
     //region variables
     private static Textures.BlockIcons.CustomIcon ScreenOFF;
@@ -462,20 +463,19 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
         int xDir = ForgeDirection.getOrientation(iGregTechTileEntity.getBackFacing()).offsetX * 2;
         int yDir = ForgeDirection.getOrientation(iGregTechTileEntity.getBackFacing()).offsetY * 2;
         int zDir = ForgeDirection.getOrientation(iGregTechTileEntity.getBackFacing()).offsetZ * 2;
-        if (iGregTechTileEntity.getBlockOffset(xDir, yDir, zDir) != TecTechCasings.HOLLOW.getBlock()) {
-            eTier = 0;
-            return false;
+        eTier = 0;
+        if (iGregTechTileEntity.getBlockOffset(xDir, yDir, zDir) == TecTechCasings.HOLLOW.getBlock()) {
+            int metadata = iGregTechTileEntity.getMetaIDOffset(xDir, yDir, zDir);
+            if (metadata == TecTechCasings.HOLLOW.getMetadata()) {
+                eTier = 1;
+            } else if (metadata == TecTechCasings.SPACETIME.getMetadata()) {
+                eTier = 2;
+            }
         }
-
-        if (iGregTechTileEntity.getMetaIDOffset(xDir, yDir, zDir) == TecTechCasings.HOLLOW.getMetadata()) {
-            eTier = 1;
-        } else if (iGregTechTileEntity.getMetaIDOffset(xDir, yDir, zDir) == TecTechCasings.SPACETIME.getMetadata()) {
-            eTier = 2;
-        } else {
-            eTier = 0;
-            return false;
-        }
-        if (checkPiece("main", 11, 1, 18)) {
+        // Count already installed ports even before the tier block has been built.
+        // Otherwise every survival pass requests the same first hatch again.
+        boolean complete = checkPiece("main", 11, 1, 18);
+        if (eTier != 0 && complete) {
             return true;
         }
         eTier = 0;
@@ -567,12 +567,13 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.collider.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.collider.desc.1"));
         tooltip.beginStructureBlock(23, 3, 21, false);
-        tooltip.addSubChannel(GTStructureChannels.TIER, translateToLocal("tt.structure.collider.tiers"));
+        tooltip.addStructureInfo("One collider half. Shared materials:");
+        tooltip.addSubChannel(GTStructureChannels.TIER, "Selects the collider half materials: 1 = tier 1; 2 = tier 2. If unset, an odd projector stack size selects tier 1; an even stack size selects tier 2.");
         tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 245, 259, false);
         tooltip.addCasingInfoExactly(TecTechCasings.MOLECULAR_COIL, 91, false);
         tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 8, false);
@@ -595,7 +596,7 @@ public class GT_MetaTileEntity_EM_collider extends GT_MetaTileEntity_MultiblockB
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.2"), HintColor.ORANGE);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.collider.hint.3"), HintColor.LIME);
         tooltip.addStructureHint("gt.blockmachines.multimachine.em.collider.hint.4");
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one elemental input, two elemental outputs, one overflow hatch, and energy input and output hatches at their marked positions. Build the matching collider half separately. Also places one Maintenance Hatch.");
     }
 
     @Override

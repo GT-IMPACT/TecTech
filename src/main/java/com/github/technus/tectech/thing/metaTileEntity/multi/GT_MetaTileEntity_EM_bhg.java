@@ -4,6 +4,7 @@ import gregtech.api.util.GTStructureChannels;
 import com.github.technus.tectech.thing.block.QuantumGlassBlock;
 import com.github.technus.tectech.thing.casing.TecTechCasings;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechAutoHatch;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.TecTechHatchElement;
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.render.TT_RenderedExtendedFacingTexture;
 import com.github.technus.tectech.util.CommonValues;
@@ -120,9 +121,9 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
                     .addElement('C', TecTechCasings.ULTIMATE_MOLECULAR.asElement())
                     .addElement('D', TecTechCasings.ULTIMATE_ADVANCED_MOLECULAR.asElement())
                     .addElement('E', TecTechCasings.ULTIMATE_CONTAINMENT_FIELD.asElement())
-                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Elemental).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
+                    .addElement('F', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Elemental).autoPlace(TecTechHatchElement.ElementalInput, TecTechHatchElement.ElementalOutput, TecTechHatchElement.ElementalOverflow).buildAndChain(StructureRequirements.builder(TecTechCasings.MOLECULAR, 0).build()), HintColor.LIME))
                     .addElement('G', ofBlock(QuantumGlassBlock.INSTANCE, 0))
-                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Classic).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
+                    .addElement('H', withHint(buildHatchAdder(GT_MetaTileEntity_EM_bhg.class).allow(TecTechHatchElement.Classic).autoPlace(TecTechAutoHatch.Maintenance).autoPlace(TecTechAutoHatch.PowerInput, TecTechAutoHatch.PowerOutput).buildAndChain(StructureRequirements.builder(TecTechCasings.HIGH_POWER, 0).build()), HintColor.GREEN))
                     .build();
     //region variables
     private static Textures.BlockIcons.CustomIcon ScreenOFF;
@@ -279,7 +280,7 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
-        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder();
+        MultiblockTooltipBuilder tooltip = new MultiblockTooltipBuilder(mName);
         tooltip.addInfo(CommonValues.TEC_MARK_EM);
         tooltip.addInfo(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.desc.0"));
         tooltip.addInfo(EnumChatFormatting.AQUA.toString() + EnumChatFormatting.BOLD + translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.desc.1"));
@@ -291,7 +292,7 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
         tooltip.addCasingInfoExactly(TecTechCasings.ULTIMATE_CONTAINMENT_FIELD, 216, false);
         tooltip.addCasingInfoRange(TecTechCasings.MOLECULAR, 0, 8, false);
         tooltip.addCasingInfoRange(TecTechCasings.HIGH_POWER, 0, 36, false);
-        tooltip.addSubChannel(GTStructureChannels.VARIANT, translateToLocal("tt.structure.bhg.dome"));
+        tooltip.addSubChannel(GTStructureChannels.VARIANT, "Value 1: open structure; value 2: glass dome. If unset, an odd projector stack size selects the open structure; an even stack size selects the dome.");
         tooltip.addOtherStructurePart(1920, QuantumGlassBlock.INSTANCE.getLocalizedName(), translateToLocal("tt.structure.bhg.dome_location"));
         tooltip.addStructureInfo(translateToLocal("tt.structure.casing_ranges"));
         tooltip.addStructureInfo(translateToLocal("tt.structure.classic_hatches"));
@@ -301,7 +302,7 @@ public class GT_MetaTileEntity_EM_bhg extends GT_MetaTileEntity_MultiblockBase_E
         tooltip.addStructureHint(EnumChatFormatting.AQUA + translateToLocal("tt.keyphrase.Hint_Details") + ":");
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.0"), HintColor.GREEN);
         tooltip.addStructureHint(translateToLocal("gt.blockmachines.multimachine.em.blackholegenerator.hint.1"), HintColor.LIME);
-        return tooltip.addStructureChannels(getStructureDefinition());
+        return tooltip.addSubChannel(GTStructureChannels.HATCH, "Places one elemental input, output and overflow hatch at lime positions, plus energy input and output hatches at green positions. Also places one Maintenance Hatch.");
     }
 
     @Override

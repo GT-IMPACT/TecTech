@@ -875,4 +875,18 @@ tt.structure.hatch.Rack=Computer Rack
 tt.structure.hatch.Holder=Object Holder
 tt.structure.hatch.DataBank=Data Access or Data Bank Master Hatch
 tt.structure.hatch.Capacitor=Tesla capacitor or utility hatch
-tt.structure.tesla_winding=Tesla primary winding tier (1–7)
+TileEntity_DESCRIPTION_multimachine.tm.teslaCoil_Channel_Index_0=Tesla primary winding tier (1–7)
+
+# Individual automatic construction roles
+tt.structure.auto.PowerInput=Energy Input Hatch
+tt.structure.auto.PowerOutput=Energy Output Hatch
+tt.structure.auto.ItemInput=Item Input Bus
+tt.structure.auto.ItemOutput=Item Output Bus
+tt.structure.auto.FluidInput=Fluid Input Hatch
+tt.structure.auto.FluidOutput=Fluid Output Hatch
+tt.structure.auto.DataInput=Computation Data Input Hatch
+tt.structure.auto.DataOutput=Computation Data Output Hatch
+tt.structure.auto.DataAccess=Data Access Hatch
+tt.structure.auto.RecipeDataOutput=Assembly Line Data Output Hatch
+tt.structure.auto.Capacitor=Capacitor Hatch
+tt.structure.auto.Maintenance=维护仓

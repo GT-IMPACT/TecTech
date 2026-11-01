@@ -544,7 +544,7 @@ gt.blockcasingsBA0.8.desc.1=Who wouldn't want a 32k epoxy multi?
 
 #Multiblocks
 gt.blockmachines.multimachine.em.transformer.name=Active Transformer
-gt.blockmachines.multimachine.em.transformer.hint=Energy IO Hatches or High Power Casing
+gt.blockmachines.multimachine.em.transformer.hint=Energy Input or Dynamo Hatches or High Power Casing
 gt.blockmachines.multimachine.em.transformer.desc.0=Power substation
 gt.blockmachines.multimachine.em.transformer.desc.1=All the transformation!
 gt.blockmachines.multimachine.em.transformer.desc.2=Only 0.004% power loss, HAYO!
@@ -767,7 +767,7 @@ gt.blockmachines.machine.tt.tesla.02.name=Advanced Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.03.name=Epyc Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.04.name=Ultimate Power Tesla Transceiver
 gt.blockmachines.machine.tt.tesla.05.name=Insane Tesla Transceiver
-gt.blockmachines.machine.tt.tesla.desc.0=Your Tesla I/O machine of choice
+gt.blockmachines.machine.tt.tesla.desc.0=Receives and transmits energy through the Tesla network
 gt.blockmachines.machine.tt.tesla.desc.1=Lightning stoves for the rich
 
 #Debug blocks
@@ -865,10 +865,10 @@ tt.keyphrase.Sending_power=Sending power
 tt.keyphrase.Receiving_power=Receiving power
 tt.keyphrase.Stored_energy=Stored energy
 tt.keyphrase.Stored_EU=Stored EU
-tt.keyphrase.Average_IO=Average I/O
-tt.keyphrase.Average_IO_(max)=Voltage I/O (max)
-tt.keyphrase.Average_IO_max=Voltage I/O max
-tt.keyphrase.Amperage_IO_(max)=Amperage I/O (max)
+tt.keyphrase.Average_IO=Average energy input and output
+tt.keyphrase.Average_IO_(max)=Maximum input and output voltage
+tt.keyphrase.Average_IO_max=Maximum input and output voltage
+tt.keyphrase.Amperage_IO_(max)=Maximum input and output amperage
 tt.keyphrase.Side_capabilities=Side capabilities
 
 #OpenTurrets compatibility
@@ -886,7 +886,7 @@ tt.structure.hatch.Rack=Компьютерная стойка
 tt.structure.hatch.Holder=Держатель объекта
 tt.structure.hatch.DataBank=Люк доступа к данным или передатчик банка данных
 tt.structure.hatch.Capacitor=Конденсатор или вспомогательный люк башни Теслы
-tt.structure.tesla_winding=уровень первичной обмотки Теслы (1–7)
+TileEntity_DESCRIPTION_multimachine.tm.teslaCoil_Channel_Index_0=Выбирает все 20 блоков первичной обмотки Теслы: 1 = редстоун; 2 = MV; 3 = HV; 4 = EV; 5 = IV; 6 = LuV; 7 = ZPM.
 
 # Multiblock structure details
 tt.structure.hologram=В позициях, показанных голограммой
@@ -896,19 +896,19 @@ tt.structure.classic_hatches=Зелёные позиции: ввод/вывод 
 tt.structure.classic_data=Также допустимы параметризаторы, оптические порты и не более одного решателя неопределённости.
 tt.structure.elemental_hatches=Лаймовые позиции: ввод, вывод или отвод избыточной элементальной материи.
 tt.structure.essentia_storage=Хранилище эссенции
-tt.structure.computer.layers=Значение N = 1-12 слоёв стоек; общая длина = N + 4. Без этого канала используется основной.
+TileEntity_DESCRIPTION_multimachine.em.computer_Channel_Index_0=Значение N = 1-12 слоёв стоек; общая длина = N + 4. Без этого канала используется основной.
 tt.structure.computer.casings=Для N слоёв: 2N + 4 обязательных компьютерных корпуса и до 14 в торцах.
 tt.structure.computer.racks=Продвинутые корпуса: 2N + 8 обязательных и 2N позиций для стоек либо корпусов.
 tt.structure.computer.clearance=Теплоотводы: 2N + 4. В каждом слое оставьте свободными две позиции со стороны теплоотводов.
 tt.structure.computer.ends=Ровно один в зелёной позиции любого торца
 tt.structure.computer.connections=Подайте энергию через энергохэтчи; для выдачи вычислений используйте оптические выходы данных.
 tt.structure.computer.uncertainty=Перед выдачей вычислений решите неопределённость.
-tt.structure.collider.tiers=Одна половина коллайдера. Значение 1: уровень 1; значение 2: уровень 2. Без этого канала: нечётный основной = уровень 1, чётный = уровень 2. Общие материалы:
+TileEntity_DESCRIPTION_multimachine.em.collider_Channel_Index_0=Выбирает материалы половины коллайдера: 1 = уровень 1; 2 = уровень 2. Без канала: нечётный основной = уровень 1, чётный = уровень 2.
 tt.structure.collider.tier1=Тир 1: добавьте к общим материалам следующие блоки:
 tt.structure.collider.tier2=Тир 2: вместо дополнений тира 1 добавьте следующие блоки:
-tt.structure.bhg.dome=Значение 1: открытая структура; значение 2: стеклянный купол. Без этого канала: нечётный основной = открытая, чётный = купол.
+TileEntity_DESCRIPTION_multimachine.em.blackholegenerator_Channel_Index_0=Значение 1: открытая структура; значение 2: стеклянный купол. Без этого канала: нечётный основной = открытая, чётный = купол.
 tt.structure.bhg.dome_location=Только для варианта со стеклянным куполом
-tt.structure.junction.sizes=Значение 1: малый узел; значение 2: большой узел. Без этого канала: нечётный основной = малый, чётный = большой.
+TileEntity_DESCRIPTION_multimachine.em.junction_Channel_Index_0=Значение 1: малый узел; значение 2: большой узел. Без этого канала: нечётный основной = малый, чётный = большой.
 tt.structure.junction.small=Материалы малого узла:
 tt.structure.junction.large=Материалы большого узла:
 tt.structure.tesla_primary=Первичные обмотки Теслы
@@ -919,3 +919,42 @@ tt.structure.transformer.io=Заменяйте не более 20 внешних
 tt.structure.scanner.output=Обязательный элементальный выход должен смотреть в ту же сторону, что и контроллер.
 tt.structure.research.holder=Положите исследуемый предмет в держатель; подайте вычисления через оптический вход данных.
 tt.structure.computer.components=Установите вычислительные компоненты в компьютерные стойки.
+TileEntity_DESCRIPTION_multimachine.em.collider_Structure_Index_0=Одна половина коллайдера. Общие материалы:
+
+# Individual automatic construction roles
+tt.structure.auto.PowerInput=Энергетический вход
+tt.structure.auto.PowerOutput=Энергетический выход
+tt.structure.auto.ItemInput=Входная предметная шина
+tt.structure.auto.ItemOutput=Выходная предметная шина
+tt.structure.auto.FluidInput=Входной жидкостный люк
+tt.structure.auto.FluidOutput=Выходной жидкостный люк
+tt.structure.auto.DataInput=Вход вычислительных данных
+tt.structure.auto.DataOutput=Выход вычислительных данных
+tt.structure.auto.DataAccess=Люк доступа к данным
+tt.structure.auto.RecipeDataOutput=Выход данных сборочной линии
+tt.structure.auto.Capacitor=Конденсаторный люк
+tt.structure.auto.Maintenance=Люк обслуживания
+
+# Automatic construction channels
+TileEntity_DESCRIPTION_multimachine.em.annihilation_Channel_Index_0=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях, энергетический вход и динамо на зелёных позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.blackholegenerator_Channel_Index_1=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях, энергетический вход и динамо на зелёных позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.crafter_Channel_Index_0=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях и энергетический вход на зелёной позиции. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.stabilizer_Channel_Index_0=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях и энергетический вход на зелёной позиции. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.wormhole_Channel_Index_0=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях и энергетический вход на зелёной позиции. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.collider_Channel_Index_1=Устанавливает один вход, два выхода и один аварийный сброс элементальной материи, энергетический вход и динамо на отмеченных позициях. Вторую половину коллайдера нужно построить отдельно. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.databank_Channel_Index_0=Устанавливает энергетический вход на зелёной позиции, люк доступа к данным и выход данных сборочной линии на фиолетовых позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.decay_Channel_Index_0=Устанавливает один вход, два выхода и один аварийный сброс элементальной материи на салатовых позициях, энергетический вход и динамо на зелёных позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.infuser_Channel_Index_0=Устанавливает энергетический вход на зелёной позиции. Заряжаемый предмет помещается в контроллер. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.junction_Channel_Index_1=Устанавливает вход, выход и аварийный сброс элементальной материи на салатовых позициях и энергетический вход на зелёной позиции. Маршруты передачи настраиваются в контроллере. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.switch_Channel_Index_0=Устанавливает вход вычислительных данных, выход вычислительных данных и энергетический вход на зелёных позициях. Маршруты данных настраиваются в контроллере. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.transformer_Channel_Index_0=Устанавливает один энергетический вход и одно динамо на жёлтых позициях, сохраняя необходимое количество корпусов.
+TileEntity_DESCRIPTION_multimachine.tm.microwave_Channel_Index_0=Устанавливает энергетический вход и выходную предметную шину на зелёных позициях. Предметы для обработки нужно бросить внутрь камеры. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.tm.teslaCoil_Channel_Index_1=Устанавливает конденсаторный люк и энергетический вход на зелёных позициях основания. Заполните люк конденсаторами, подходящими к выбранной обмотке. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.processing_Channel_Index_0=Устанавливает энергетический вход на зелёной позиции, вход, выход и аварийный сброс элементальной материи на салатовых позициях. Дополнительные порты и маршруты зависят от выбранного режима машины. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.essentiatoem_Channel_Index_0=Устанавливает энергетический вход, выход элементальной материи и аварийный сброс на отмеченных позициях. На голубой позиции ставит пустую банку для эссенции. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.emtoessentia_Channel_Index_0=Устанавливает энергетический вход, вход элементальной материи и аварийный сброс на отмеченных позициях. На голубой позиции ставит пустую банку для эссенции. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.computer_Channel_Index_1=Устанавливает один регулятор неопределённости, энергетический вход и выход вычислительных данных в торцевых стенках, одну компьютерную стойку на фиолетовой позиции. Дополнительные стойки увеличивают вычислительную мощность. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.research_Channel_Index_0=Устанавливает держатель предмета на отмеченной позиции, энергетический вход и вход вычислительных данных в корпусе. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.scanner_Channel_Index_0=Устанавливает вход элементальной материи на синей позиции, направленный вперёд выход на оранжевой, аварийный сброс на салатовой, энергетический вход и вход вычислительных данных на зелёных позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.mattertoem_Channel_Index_0=Устанавливает выход элементальной материи, аварийный сброс, энергетический вход, входную предметную шину и входной жидкостный люк на отмеченных позициях. Также устанавливает один люк обслуживания.
+TileEntity_DESCRIPTION_multimachine.em.emtomatter_Channel_Index_0=Устанавливает вход элементальной материи, аварийный сброс, энергетический вход, выходную предметную шину и выходной жидкостный люк на отмеченных позициях. Также устанавливает один люк обслуживания.
