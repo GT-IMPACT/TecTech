@@ -1,17 +1,6 @@
 # TecTech
 GT additions EXTREME
 
-## Локальная сборка
-
-Gradle Wrapper 9.7.1 запускается на JDK 25; Minecraft и тесты используют JDK 8.
-Команда проверки: `./gradlew build`.
-
-При наличии соседних `../gt-worktree` и `../impact-core-worktree` сборка и импорт
-IDEA используют их текущие исходники. Другие пути задаются свойствами Gradle
-`gregtechProjectDir` и `impactCoreProjectDir`. После изменения настроек выполните
-Reload All Gradle Projects в IDEA. Запуск Core также подключает этот TecTech,
-чтобы RecipeModule мог регистрировать рецепты с его предметами.
-
 # WIKI
 https://github.com/Technus/TecTech/wiki
 
