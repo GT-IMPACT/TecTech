@@ -34,13 +34,27 @@ dependencies {
     }
 
     api("space.impact:ImpactStructures:1.1.3:dev")
-    api("space.impact:Impact-Core:1.1.1.0:dev") {
+    api("space.impact:Impact-Core:1.1.1.0") {
+        if (gradle.parent == null && gradle.includedBuilds.none {
+                it.name == "impact-core"
+            }) {
+            artifact {
+                classifier = "dev"
+            }
+        }
         exclude(
             group = "curse.maven",
             module = "journeymap-32274",
         )
     }
-    api("space.impact:gregtech-impact:5.09.36.4:dev") {
+    api("space.impact:gregtech-impact:5.09.37.1") {
+        if (gradle.parent == null && gradle.includedBuilds.none {
+                it.name == "gregtech"
+            }) {
+            artifact {
+                classifier = "dev"
+            }
+        }
         isTransitive = false
     }
     compileOnly("space.impact:OpenComputers:1.7.5.7-impact")
@@ -48,8 +62,9 @@ dependencies {
     // maven impact
     api("com.github.GTNewHorizons:CodeChickenCore:1.4.21:dev")
     api("com.github.GTNewHorizons:NotEnoughItems:2.6.0-GTNH:dev")
-    implementation(modUtils.deobfuscate("com.github.Azanor:Baubles:1.0.1.12"))
-    implementation("com.github.GTNewHorizons:YAMCore:0.5.79")
+    implementation("com.github.GTNewHorizons:Baubles-Expanded:2.2.24-GTNH:dev")
+    // YAMCore is published with SRG names; dev clients need MCP names for packet handlers.
+    implementation(modUtils.deobfuscate("com.github.GTNewHorizons:YAMCore:0.5.79"))
     implementation("com.github.GTNewHorizons:waila:1.7.3:dev") {
         isTransitive = false
     }
