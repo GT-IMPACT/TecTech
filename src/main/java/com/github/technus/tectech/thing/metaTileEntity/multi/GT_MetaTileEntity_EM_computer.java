@@ -421,16 +421,25 @@ public class GT_MetaTileEntity_EM_computer extends GT_MetaTileEntity_MultiblockB
 
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
-        buildPiece("front", stackSize, hintsOnly, 1, 2, 0);
-        buildPiece("cap", stackSize, hintsOnly, 1, 2, -1);
+        int slices = Math.max(1, Math.min(GTStructureChannels.getValue(stackSize, GTStructureChannels.LENGTH), 12));
+        int previousSlices = constructionSlices;
+        // buildPiece also checks the partial machine. Keep those visits consistent with the planned pieces
+        // so preview collectors do not record a future cap or back wall as a rack slice.
+        constructionSlices = slices;
+        try {
+            buildPiece("front", stackSize, hintsOnly, 1, 2, 0);
+            buildPiece("cap", stackSize, hintsOnly, 1, 2, -1);
 
-        byte offset = -2;
-        for (int rackSlices = Math.max(1, Math.min(GTStructureChannels.getValue(stackSize, GTStructureChannels.LENGTH), 12)); rackSlices > 0; rackSlices--) {
-            buildPiece("slice", stackSize, hintsOnly, 1, 2, offset--);
+            byte offset = -2;
+            for (int rackSlices = slices; rackSlices > 0; rackSlices--) {
+                buildPiece("slice", stackSize, hintsOnly, 1, 2, offset--);
+            }
+
+            buildPiece("cap", stackSize, hintsOnly, 1, 2, offset--);
+            buildPiece("back", stackSize, hintsOnly, 1, 2, offset);
+        } finally {
+            constructionSlices = previousSlices;
         }
-
-        buildPiece("cap", stackSize, hintsOnly, 1, 2, offset--);
-        buildPiece("back", stackSize, hintsOnly, 1, 2, offset);
     }
 
     @Override
