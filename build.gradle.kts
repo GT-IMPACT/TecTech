@@ -34,12 +34,6 @@ dependencies {
     }
 
     api("space.impact:ImpactStructures:1.1.3:dev")
-    api("space.impact:Impact-Core:1.1.1.0:dev") {
-        exclude(
-            group = "curse.maven",
-            module = "journeymap-32274",
-        )
-    }
     api("space.impact:gregtech-impact:5.09.37.2:dev") {
         isTransitive = false
     }

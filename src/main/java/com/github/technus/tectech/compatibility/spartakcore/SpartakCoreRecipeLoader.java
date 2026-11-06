@@ -7,7 +7,6 @@ import com.github.technus.tectech.thing.metaTileEntity.multi.em_machine.Behaviou
 import com.github.technus.tectech.thing.metaTileEntity.multi.em_machine.Behaviour_ElectromagneticSeparator;
 import com.github.technus.tectech.thing.metaTileEntity.multi.em_machine.Behaviour_Recycler;
 import com.github.technus.tectech.thing.metaTileEntity.multi.em_machine.GT_MetaTileEntity_EM_machine;
-import com.impact.common.item.Core_Items2;
 import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -26,8 +25,6 @@ import static com.github.technus.tectech.loader.recipe.RecipeLoader.getOrDefault
  * Created by Spartak1997 on 28.07.2019.
  */
 public class SpartakCoreRecipeLoader implements Runnable {
-
-    final Core_Items2 CoreItems2 = Core_Items2.getInstance();
 
     @Override
     public void run() {
@@ -203,50 +200,6 @@ public class SpartakCoreRecipeLoader implements Runnable {
 
 
         //region hatches
-
-        //Buck Converter IV-UIV
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_LuV_IV.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Elite, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.HastelloyC276, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.TungstenSteel, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.TungstenSteel, 16)}, null,
-                CustomItemList.Machine_BuckConverter_IV.get(1), 100, 7680);
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_ZPM_LuV.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Master, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.HastelloyN, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.NiobiumTitanium, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Chrome, 16)}, null,
-                CustomItemList.Machine_BuckConverter_LuV.get(1), 100, 30720);
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_UV_ZPM.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Ultimate, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Lafium, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.Naquadah, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Iridium, 16)}, null,
-                CustomItemList.Machine_BuckConverter_ZPM.get(1), 100, 122880);
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_MAX_UV.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Superconductor, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.CinobiteA243, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.NaquadahAlloy, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Osmium, 16)}, null,
-                CustomItemList.Machine_BuckConverter_UV.get(1), 100, 500000);
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_UEV_UHV.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Infinite, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Pikyonium64B, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.Europium, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Neutronium, 16)}, null,
-                CustomItemList.Machine_BuckConverter_UHV.get(1), 100, 2000000);
-        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Transformer_UIV_UEV.get(1),
-                CoreItems2.getRecipe(182, 1),
-                GT_OreDictUnificator.get(OrePrefixes.circuit, Materials.Bio, 2),
-                GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Phoenixite, 2),
-                GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.Diamericiumtitanium, 4),
-                GT_OreDictUnificator.get(OrePrefixes.bolt, Materials.Phoenixite, 16)}, null,
-                CustomItemList.Machine_BuckConverter_UEV.get(1), 100, 8000000);
 
         //Data Input
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{
