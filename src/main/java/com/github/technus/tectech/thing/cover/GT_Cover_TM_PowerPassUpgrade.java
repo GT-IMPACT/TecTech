@@ -1,49 +1,49 @@
 package com.github.technus.tectech.thing.cover;
 
 import com.github.technus.tectech.thing.metaTileEntity.multi.base.GT_MetaTileEntity_MultiblockBase_EM;
+import gregtech.api.covers.CoverContext;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.objects.GT_ItemStack;
-import gregtech.api.util.GT_CoverBehavior;
+import gregtech.common.covers.Cover;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class GT_Cover_TM_PowerPassUpgrade extends GT_CoverBehavior {
-    public GT_Cover_TM_PowerPassUpgrade() {
+public class GT_Cover_TM_PowerPassUpgrade extends Cover {
+
+    public GT_Cover_TM_PowerPassUpgrade(CoverContext context) {
+        super(context, null);
     }
 
-    public boolean isCoverPlaceable(byte aSide, GT_ItemStack aStack, ICoverable aTileEntity) {
-        IGregTechTileEntity iGregTechTileEntityOffset = aTileEntity.getIGregTechTileEntityOffset(0, 0, 0);
-        if (iGregTechTileEntityOffset instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
-            GT_MetaTileEntity_MultiblockBase_EM<?> multi = (GT_MetaTileEntity_MultiblockBase_EM<?>) iGregTechTileEntityOffset;
-            return !multi.ePowerPassCover;
+    public static boolean isCoverPlaceable(ICoverable tile) {
+        GT_MetaTileEntity_MultiblockBase_EM<?> controller = getController(tile);
+        return controller != null && !controller.ePowerPassCover;
+    }
+
+    private static GT_MetaTileEntity_MultiblockBase_EM<?> getController(ICoverable tile) {
+        if (tile instanceof IGregTechTileEntity) {
+            Object controller = ((IGregTechTileEntity) tile).getMetaTileEntity();
+            if (controller instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
+                return (GT_MetaTileEntity_MultiblockBase_EM<?>) controller;
+            }
         }
-        return false;
+        return null;
     }
 
     @Override
-    public void placeCover(byte aSide, ItemStack aCover, ICoverable aTileEntity) {
-        IGregTechTileEntity iGregTechTileEntityOffset = aTileEntity.getIGregTechTileEntityOffset(0, 0, 0);
-        if (iGregTechTileEntityOffset instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
-            GT_MetaTileEntity_MultiblockBase_EM<?> multi = (GT_MetaTileEntity_MultiblockBase_EM<?>) iGregTechTileEntityOffset;
-            multi.ePowerPassCover = true;
-            multi.ePowerPass = true;
+    public void onPlayerAttach(EntityPlayer player, ItemStack coverItem) {
+        GT_MetaTileEntity_MultiblockBase_EM<?> controller = getController(getTile());
+        if (controller != null) {
+            controller.ePowerPassCover = true;
+            controller.ePowerPass = true;
         }
-        super.placeCover(aSide, aCover, aTileEntity);
     }
 
     @Override
-    public boolean onCoverRemoval(byte aSide, int aCoverID, int aCoverVariable, ICoverable aTileEntity, boolean aForced) {
-        IGregTechTileEntity iGregTechTileEntityOffset = aTileEntity.getIGregTechTileEntityOffset(0, 0, 0);
-        if (iGregTechTileEntityOffset instanceof GT_MetaTileEntity_MultiblockBase_EM<?>) {
-            GT_MetaTileEntity_MultiblockBase_EM<?> multi = (GT_MetaTileEntity_MultiblockBase_EM<?>) iGregTechTileEntityOffset;
-            multi.ePowerPassCover = false;
-            multi.ePowerPass = false;
+    public void onCoverRemoval() {
+        GT_MetaTileEntity_MultiblockBase_EM<?> controller = getController(getTile());
+        if (controller != null) {
+            controller.ePowerPassCover = false;
+            controller.ePowerPass = false;
         }
-        return true;
-    }
-
-    @Deprecated
-    public int getTickRate(byte aSide, int aCoverID, int aCoverVariable, ICoverable aTileEntity) {
-        return 0;
     }
 }

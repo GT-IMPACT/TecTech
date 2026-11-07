@@ -29,6 +29,8 @@ sourceSets {
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
+    // MUI2 normally obtains fastutil from GTNHExtLib at game startup.
+    testRuntimeOnly("it.unimi.dsi:fastutil:8.5.18")
     api("com.github.GTNewHorizons:modularui:1.1.24:dev") {
         isTransitive = false
     }

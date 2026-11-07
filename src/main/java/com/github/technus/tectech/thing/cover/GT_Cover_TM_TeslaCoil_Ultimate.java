@@ -1,37 +1,40 @@
 package com.github.technus.tectech.thing.cover;
 
-import gregtech.api.interfaces.tileentity.ICoverable;
+import gregtech.api.covers.CoverContext;
 import net.minecraftforge.fluids.Fluid;
 
 public class GT_Cover_TM_TeslaCoil_Ultimate extends GT_Cover_TM_TeslaCoil {
-    public GT_Cover_TM_TeslaCoil_Ultimate() {
+
+    public GT_Cover_TM_TeslaCoil_Ultimate(CoverContext context) {
+        super(context);
     }
 
     @Override
-    public boolean letsEnergyOut(byte aSide, int aCoverID, int aCoverVariable, ICoverable aTileEntity) {
+    public boolean letsEnergyOut() {
         return true;
     }
 
     @Override
-    public boolean letsItemsIn(byte aSide, int aCoverID, int aCoverVariable, int aSlot, ICoverable aTileEntity) {
+    public boolean letsItemsIn(int slot) {
         return true;
     }
 
     @Override
-    public boolean letsItemsOut(byte aSide, int aCoverID, int aCoverVariable, int aSlot, ICoverable aTileEntity) {
+    public boolean letsItemsOut(int slot) {
         return true;
     }
 
     @Override
-    public boolean letsFluidIn(byte aSide, int aCoverID, int aCoverVariable, Fluid aFluid, ICoverable aTileEntity) {
+    public boolean letsFluidIn(Fluid fluid) {
         return true;
     }
 
     @Override
-    public boolean letsFluidOut(byte aSide, int aCoverID, int aCoverVariable, Fluid aFluid, ICoverable aTileEntity) {
+    public boolean letsFluidOut(Fluid fluid) {
         return true;
     }
 
+    @Override
     public byte getTeslaReceptionCapability() {
         return 1;
     }
