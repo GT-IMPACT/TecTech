@@ -68,9 +68,14 @@ public class GT_MetaTileEntity_Hatch_InputDataItems extends GT_MetaTileEntity_Ha
     }
 
     @Override
+    public boolean useMui2() {
+        return false;
+    }
+
+    @Override
     public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer) {
         if (aBaseMetaTileEntity.isClientSide()) {
-            return true;
+            return false;
         }
         try {
             EntityPlayerMP player = (EntityPlayerMP) aPlayer;
@@ -78,8 +83,7 @@ public class GT_MetaTileEntity_Hatch_InputDataItems extends GT_MetaTileEntity_Ha
         } catch (Exception e) {
             clientLocale = "en_US";
         }
-        aBaseMetaTileEntity.openGUI(aPlayer);
-        return true;
+        return false;
     }
 
     @Override
